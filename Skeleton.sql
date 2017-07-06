@@ -46,6 +46,18 @@ CREATE TABLE UserTitleRoles (
 	FOREIGN KEY (RoleName) REFERENCES UserRoleTypes (RoleName) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE ScriptTypes (
+	ScriptTypeName VARCHAR(10) NOT NULL UNIQUE,
+	PRIMARY KEY (ScriptTypeName);
+);
+
+CREATE TABLE Scripts (
+	ScriptName VARHCAR(32) NOT NULL UNIQUE,
+	ScriptTypeName VARCHAR(10) NOT NULL,
+	PRIMARY KEY (ScriptName),
+	FOREIGN KEY (ScriptTypeName) REFERENCES ScriptTypes (ScriptTypeName) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE MainMenu (
 	MainMenuID INT UNIQUE NOT NULL AUTO_INCREMENT,
 	PageName VARCHAR(20),
@@ -64,11 +76,21 @@ INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_UP
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_REMOVE', 'Remove.php?Type=User', 'Kullanıcıyı sil');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_PASSWORD_RESET', 'ChangePassword.php', 'Parola sıfırla');
 
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_ADD', 'Add.php?Type=Page', 'Sayfa oluştur');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_SEARCH', 'Search.php?Type=Page', 'Sayfa bul');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_UPDATE', 'Update.php?Type=Page', 'Sayfayı güncelle');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_REMOVE', 'RemovePage.php', 'Sayfayı sil');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_ADD', 'Add.php?Type=Pages', 'Sayfa oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_SEARCH', 'Search.php?Type=Pages', 'Sayfa bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_UPDATE', 'Update.php?Type=Pages', 'Sayfayı güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_REMOVE', 'Remove.php?Type=Pages', 'Sayfayı sil');
 
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_ADD', 'Add.php?Type=Script', 'Script oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_SEARCH', 'Search.php?Type=Script', 'Script bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_UPDATE', 'Update.php?Type=Script', 'Scripti güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_REMOVE', ''Remove.php?Type=Script', 'Scripti sil');
+
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_ADD', 'Add.php?Type=UserTitles', 'Kullanıcı ünvanı oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_SEARCH', 'Search.php?Type=UserTitles', 'Kullanıcı ünvanı bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_UPDATE', 'Update.php?Type=UserTitles', 'Kullanıcı ünvanını güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_REMOVE', ''Remove.php?Type=UserTitles', 'Kullanıcı ünvanını sil');																														 
+																															 
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_ADMIN', 'Yönetici');
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_DEVELOPER', 'Yazılım Geliştirici');
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_HRM', 'İnsan Kaynakları');
