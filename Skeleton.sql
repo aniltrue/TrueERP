@@ -81,16 +81,31 @@ INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_SE
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_UPDATE', 'Update.php?Type=Pages', 'Sayfayı güncelle');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_REMOVE', 'Remove.php?Type=Pages', 'Sayfayı sil');
 
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_ADD', 'Add.php?Type=Script', 'Script oluştur');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_SEARCH', 'Search.php?Type=Script', 'Script bul');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_UPDATE', 'Update.php?Type=Script', 'Scripti güncelle');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_REMOVE', ''Remove.php?Type=Script', 'Scripti sil');
-
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_ADD', 'Add.php?Type=Scripts', 'Script oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_SEARCH', 'Search.php?Type=Scripts', 'Script bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_UPDATE', 'Update.php?Type=Scripts', 'Scripti güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SCRIPT_REMOVE', ''Remove.php?Type=Scripts', 'Scripti sil');							       
+							       
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_ADD', 'Add.php?Type=UserTitles', 'Kullanıcı ünvanı oluştur');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_SEARCH', 'Search.php?Type=UserTitles', 'Kullanıcı ünvanı bul');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_UPDATE', 'Update.php?Type=UserTitles', 'Kullanıcı ünvanını güncelle');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_REMOVE', ''Remove.php?Type=UserTitles', 'Kullanıcı ünvanını sil');																														 
-																															 
+
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_MAINMENU_ADD', 'Add.php?Type=MainMenu', 'Ana menü oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_MAINMENU_SEARCH', 'Search.php?Type=MainMenu', 'Ana menü bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_MAINMENU_UPDATE', 'Update.php?Type=MainMenu', 'Ana menüyü güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_MAINMENU_REMOVE', ''Remove.php?Type=MainMenu', 'Ana menüyü sil');
+
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_TITLE_ROLES_ADD', 'Add.php?Type=TitleRoles', 'Ünvan rolü oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_TITLE_ROLES_SEARCH', 'Search.php?Type=TitleRoles', 'Ünvan rolü bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_TITLE_ROLES_UPDATE', 'Update.php?Type=TitleRoles', 'Ünvan rolünü güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_TITLE_ROLES_REMOVE', ''Remove.php?Type=TitleRoles', 'Ünvan rolünü sil');								       
+
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_ROLES_ADD', 'Add.php?Type=UserRoles', 'Kullanıcı rolü oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_ROLES_SEARCH', 'Search.php?Type=UserRoles', 'Kullanıcı rolü bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_ROLES_UPDATE', 'Update.php?Type=UserRoles', 'Kullanıcı rolünü güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_ROLES_REMOVE', ''Remove.php?Type=UserRoles', 'Kullanıcı rolünü sil');
+
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_ADMIN', 'Yönetici');
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_DEVELOPER', 'Yazılım Geliştirici');
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_HRM', 'İnsan Kaynakları');
@@ -123,20 +138,15 @@ INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_DE
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_DEV_MAINMENU_UPDATE', 'PAGE_DEV_MAINMENU_UPDATE', 'Ana menü güncelleme (Geliştirici)');
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_DEV_MAINMENU_REMOVE', 'PAGE_DEV_MAINMENU_REMOVE', 'Ana menü silme (Geliştirici)');
 
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_ADD', 'PAGE_HRM_TITLE_ROLES_ADD', 'Ünvan rolleri oluşturma (IK)');
+INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_ADD', 'PAGE_HRM_TITLE_ROLES_ADD', 'Ünvan rolü oluşturma (IK)');
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_SEARCH', 'PAGE_HRM_TITLE_ROLES_SEARCH', 'Ünvan rollerini görme (IK)');
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_UPDATE', 'PAGE_HRM_TITLE_ROLES_UPDATE', 'Ünvan rolleri güncelleme (IK)');
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_REMOVE', 'PAGE_HRM_TITLE_ROLES_REMOVE', 'Ünvan rolleri silme (IK)');
+INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_UPDATE', 'PAGE_HRM_TITLE_ROLES_UPDATE', 'Ünvan rolü güncelleme (IK)');
+INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_REMOVE', 'PAGE_HRM_TITLE_ROLES_REMOVE', 'Ünvan rolü silme (IK)');
 
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_USER_ROLES_ADD', 'PAGE_HRM_USER_ROLES_ADD', 'Kullanıcı rolleri oluşturma (IK)');
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_USER_ROLES_SEARCH', 'PAGE_HRM_USER_ROLES_SEARCH', 'Kullanıcı rollerini görme (IK)');
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_USER_ROLES_UPDATE', 'PAGE_HRM_USER_ROLES_UPDATE', 'Kullanıcı rolleri güncelleme (IK)');
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_USER_ROLES_REMOVE', 'PAGE_HRM_USER_ROLES_REMOVE', 'Kullanıcı rolleri silme (IK)');
-
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_DEV_PAGE_ROLES_ADD', 'PAGE_DEV_PAGE_ROLES_ADD', 'Sayfa rolleri oluşturma (Geliştirici, IK)');
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_DEV_PAGE_ROLES_SEARCH', 'PAGE_DEV_PAGE_ROLES_SEARCH', 'Sayfa rollerini görme (Geliştirici, IK)');
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_DEV_PAGE_ROLES_UPDATE', 'PAGE_DEV_PAGE_ROLES_UPDATE', 'Sayfa rolleri güncelleme (Geliştirici, IK)');
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_DEV_PAGE_ROLES_REMOVE', 'PAGE_DEV_PAGE_ROLES_REMOVE', 'Sayfa rolleri silme (Geliştirici, IK)');
 
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_ADMIN', 'ROLE_ALL');
 
@@ -157,10 +167,6 @@ INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_USER_ROLES_SEARCH');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_USER_ROLES_UPDATE');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_USER_ROLES_REMOVE');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_DEV_PAGE_ROLES_ADD');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_DEV_PAGE_ROLES_SEARCH');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_DEV_PAGE_ROLES_UPDATE');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_DEV_PAGE_ROLES_REMOVE');
 
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_PAGE_ADD');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_PAGE_SEARCH');
@@ -174,10 +180,6 @@ INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROL
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_MAINMENU_SEARCH');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_MAINMENU_UPDATE');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_MAINMENU_REMOVE');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_PAGE_ROLES_ADD');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_PAGE_ROLES_SEARCH');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_PAGE_ROLES_UPDATE');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_PAGE_ROLES_REMOVE');
 
 INSERT INTO User (UserEmail, UserName, UserSurname, UserPhone, UserPassword, TitleName) VALUES ('anildogru07@gmail.com', 'Anıl', 'Doğru', '5069540105', 'b8fac6ae9b038da4d836436c94530031', 'Developer');
 INSERT INTO UserRoles (UserEmail, RoleName) VALUES ('anildogru07@gmail.com', 'ROLE_ALL');
