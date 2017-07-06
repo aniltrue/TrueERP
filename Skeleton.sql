@@ -48,6 +48,7 @@ CREATE TABLE UserTitleRoles (
 
 CREATE TABLE ScriptTypes (
 	ScriptTypeName VARCHAR(10) NOT NULL UNIQUE,
+	ScriptTypeText VARCHAR(12) NOT NULL,
 	PRIMARY KEY (ScriptTypeName);
 );
 
@@ -181,5 +182,11 @@ INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROL
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_MAINMENU_UPDATE');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_MAINMENU_REMOVE');
 
+INSERT INTO ScriptTypes (ScriptTypeName, ScriptTypeText) VALUES ('ADD', 'Ekleme');
+INSERT INTO ScriptTypes (ScriptTypeName, ScriptTypeText) VALUES ('UPDATE', 'Güncelleme');
+INSERT INTO ScriptTypes (ScriptTypeNam, ScriptTypeTexte) VALUES ('SEARCH', 'Arama');							     
+
+							       
+							       
 INSERT INTO User (UserEmail, UserName, UserSurname, UserPhone, UserPassword, TitleName) VALUES ('anildogru07@gmail.com', 'Anıl', 'Doğru', '5069540105', 'b8fac6ae9b038da4d836436c94530031', 'Developer');
 INSERT INTO UserRoles (UserEmail, RoleName) VALUES ('anildogru07@gmail.com', 'ROLE_ALL');
