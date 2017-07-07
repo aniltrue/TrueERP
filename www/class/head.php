@@ -148,7 +148,7 @@ $userInfo = array($rw["UserName"], $rw["UserSurname"], $rw["UserPhone"], $rw["St
 ?>
 
 <div class="w3-container w3-border-bottom w3-border-lime w3-teal">
-	<h2>Değer İyi Tarım</h2>
+	<h2>Bla Bla</h2>
     <p>Hoş Geldiniz, <?php echo $userInfo[0] . ' ' . $userInfo[1] ?>.</p>
 </div>
 
@@ -156,18 +156,20 @@ $userInfo = array($rw["UserName"], $rw["UserSurname"], $rw["UserPhone"], $rw["St
 	<div class="w3-bar w3-border-teal">
     <?php
 	
-	$mainmenus = $conn->query("SELECT * FROM MainMenu left join (UserRoleTypes natural join Pages) WHERE MainMenuParent = 0");
+	$mainmenus = $conn->query("SELECT * FROM MainMenu left join Pages WHERE MainMenuParent = 0");
 	while($mainmenu = $mainmenus->fetch_assoc()) {
-		if(!empty($mainmenu["PageURL"]))
+		if(!empty($mainmenu["PageURL"]) && CheckRoles($conn, $UserEmail, $childmenu["PageName"]))
 			echo '<a href="' . $mainmenu["PageURL"] . '" class="w3-bar-item w3-button w3-animate-right">' . $mainmenu["MainMenuText"] . '</a>';	
 		else {
 			echo '<div class="w3-dropdown-hover">
 			<button class="w3-button w3-animate-right">' . $mainmenu["MainMenuText"] . '</button>
             <div class="w3-dropdown-content w3-bar-block w3-card-4">';
 			
-			$childmenus = $conn->query("SELECT * FROM MainMenu WHERE MainMenuParent = " . $mainmenu["MainMenuID"]);
-			while($childmenu = $childmenus->fetch_assoc()) 
-				echo '<a href="' . $childmenu["PageURL"] . '" class="w3-bar-item w3-button">' . $childmenu["MainMenuText"] . '</a>';
+			$childmenus = $conn->query("SELECT * FROM MainMenu natural join Page WHERE MainMenuParent = " . $mainmenu["MainMenuID"]);
+			while($childmenu = $childmenus->fetch_assoc()) {
+				if(CheckRoles($conn, $UserEmail, $childmenu["PageName"]))
+					echo '<a href="' . $childmenu["PageURL"] . '" class="w3-bar-item w3-button">' . $childmenu["MainMenuText"] . '</a>';
+			}
 			
 			echo '</div>
 			</div>';
