@@ -37,7 +37,7 @@ if(!isset($_SESSION["user"]) || !isset($_SESSION["email"])) {
 	exit;
 }
 $UserEmail = $conn->real_escape_string($_SESSION["email"]);
-$sql = "SELECT * FROM User WHERE UserEmail = '" . $UserEmail . "'";
+$sql = "SELECT * FROM User WHERE UserEmail = '" . $UserEmail . "' AND UserEnable = 1";
 $result = $conn->query($sql);
 if($result->num_rows <= 0) {
 	session_destroy();
