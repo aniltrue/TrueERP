@@ -47,6 +47,8 @@ class AddObject {
      return;
 	 }
    
+	 $now = new DateTime('now');
+		
 	 echo '<div class="w3-row w3-section">';
 	 drawTitle();
 	 
