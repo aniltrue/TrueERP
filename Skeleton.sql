@@ -57,6 +57,7 @@ CREATE TABLE MainMenu (
 
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_MAIN', 'main.php', 'AnaSayfa');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_USER_PASSWORD_RESET', 'ChangePassword.php', 'Parola değiştir');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_USER_PROFILE', 'profile.php', 'Profil görüntüle');
 
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_ADD', 'CreateUser.php', 'Kullanıcı oluştur');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_SEARCH', 'SearchUser.php', 'Kullanıcı bul');
@@ -87,6 +88,27 @@ INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_TITLE_R
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_TITLE_ROLES_UPDATE', 'UpdateTitleRoles.php', 'Ünvan rolünü güncelle');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_TITLE_ROLES_REMOVE', ''RemoveTitleRoles.php', 'Ünvan rolünü sil');	
 
+INSERT INTO MainMenu(PageName) VALUES ('PAGE_MAIN');
+INSERT INTO MainMenu(MainMenuText) VALUES ('Ekle');
+INSERT INTO MainMenu(MainMenuText) VALUES ('Bul');
+INSERT INTO MainMenu(MainMenuText) VALUES ('Kullanıcı işlemleri');
+INSERT INTO MainMenu(MainMenuText) VALUES ('Muhasebe');                                                               
+INSERT INTO MainMenu(MainMenuText) VALUES ('Geliştirici');
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_USER_PROFILE', 4);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_USER_PASSWORD_RESET', 4);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_HRM_USER_ADD', 4);                                                              
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_HRM_USER_SEARCH', 4);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_HRM_USER_TITLES_ADD', 4);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_HRM_USER_TITLES_SEARCH', 4);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_HRM_TITLE_ROLES_ADD', 4);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_HRM_TITLE_ROLES_SEARCH', 4);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_DEV_SQL_SELECT', 5);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_DEV_SQL_EXECUTE', 5);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_DEV_PAGE_ADD', 5);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_DEV_PAGE_SEARCH', 5);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_DEV_MAINMENU_ADD', 5);
+INSERT INTO MainMenu(PageName, MainMenuParent) VALUES ('PAGE_DEV_MAINMENU_SEARCH', 5);                                                               
+                                                               
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_ADMIN', 'Yönetici');
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_DEVELOPER', 'Yazılım Geliştirici');
 INSERT INTO UserTitles (TitleName, TitleDescription) VALUES ('TITLE_HRM', 'İnsan Kaynakları');
