@@ -59,24 +59,24 @@ INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_MAIN', 'mai
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_USER_PASSWORD_RESET', 'ChangePassword.php', 'Parola değiştir');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_USER_PROFILE', 'profile.php', 'Profil görüntüle');
 
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_ADD', 'CreateUser.php', 'Kullanıcı oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_ADD', 'AddUser.php', 'Kullanıcı oluştur');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_SEARCH', 'SearchUser.php', 'Kullanıcı bul');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_UPDATE', 'UpdateUser.php', 'Kullanıcıyı güncelle');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_REMOVE', 'RemoveUser.php', 'Kullanıcıyı sil');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_PASSWORD_RESET', 'ChangePassword.php', 'Parola sıfırla');
 
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_ADD', 'AddPages.php', 'Sayfa oluştur');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_SEARCH', 'SearchPages.php', 'Sayfa bul');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_UPDATE', 'UpdatePages.php', 'Sayfayı güncelle');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_REMOVE', 'RemovePages.php', 'Sayfayı sil');							       
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_ADD', 'AddPage.php', 'Sayfa oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_SEARCH', 'SearchPage.php', 'Sayfa bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_UPDATE', 'UpdatePage.php', 'Sayfayı güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_PAGE_REMOVE', 'RemovePage.php', 'Sayfayı sil');							       
 
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SQL_SELECT', 'SQLSelect.php', 'SQL veri çekme');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_SQL_EXECUTE', 'SQLExecute.php', 'SQL script çalıştırma');
 
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_ADD', 'AddUserTitles.php', 'Kullanıcı ünvanı oluştur');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_SEARCH', 'SearchUserTitles.php', 'Kullanıcı ünvanı bul');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_UPDATE', 'UpdateUserTitles.php', 'Kullanıcı ünvanını güncelle');
-INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_REMOVE', ''RemoveUserTitles.php', 'Kullanıcı ünvanını sil');																														 
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_ADD', 'AddUserTitle.php', 'Kullanıcı ünvanı oluştur');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_SEARCH', 'SearchUserTitle.php', 'Kullanıcı ünvanı bul');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_UPDATE', 'UpdateUserTitle.php', 'Kullanıcı ünvanını güncelle');
+INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_HRM_USER_TITLES_REMOVE', ''RemoveUserTitle.php', 'Kullanıcı ünvanını sil');																														 
 
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_MAINMENU_ADD', 'AddMainMenu.php', 'Ana menü oluştur');
 INSERT INTO Pages (PageName, PageURL, PageDescription) VALUES ('PAGE_DEV_MAINMENU_SEARCH', 'SearchMainMenu.php', 'Ana menü bul');
