@@ -31,21 +31,46 @@ class AddObject {
   }
   
   function draw() {
-   if($InputType == 'text' && $InputType == 'number' && $InputType == 'date' && $InputType == 'year' && $InputType == 'textArea')
+   if($InputType === 'combo')
      return;
-    
-   drawTitle();
    
+	 echo '<div class="w3-row w3-section">';
+   drawTitle();
+	 
+	 $InputText = 'type="' . $InputType . '"';
+	 if($InputType === 'year')
+		 $InputText = 'type="number"';
+   
+	 $PlaceHolderText = 'placeholder="' . $PlaceHolder . '"';
+	 
+	 $ValueText = 'value=""';
+	 if($InputType === 'year')
+		 $ValueText = 'value="' . $now()->format("Y") . '"';
+	 elseif($InputType === 'date')
+		 $ValueText = 'value="' . $now()->format("d.M.Y") . '"';
+	
+	 echo '<input ' $InputText . ' ' $ValueText . ' ' . $PlaceHolderText . ' ' . getPropertiesText() . ' />'; 
+	 
    echo '</div>';
   }
   
+	function drawCombo($SQL, $ValueColumn, $TextColumns) {
+		if($InputType != 'combo')
+			return;
+		
+		echo '<div class="w3-row w3-section">';
+    drawTitle();
+		
+		
+		
+		echo '</div>';
+	}
+	
   private function drawTitle() {
-   $RedDot = "";
 	 if($IsRequired)
-		$RedDot = '<label class="w3-text-red">*</label>';
-    
-	 echo '<div class="w3-row w3-section">
-	 <p>' . $ColumnText . $RedDot . '</p>';
+		 echo '<p>' . $ColumnText . '<label class="w3-text-red">*</label></p>';
+	 else
+		 echo '<p>' . $ColumnText . '</p>';
   }
   
   private function getPropertiesText() {
@@ -56,7 +81,7 @@ class AddObject {
 	 $NameText = "";
 	 if($ObjectType != 1)
 	  $NameText = 'name="' . $ColumnName . '"';
-    
+
    return trim($NameText . " " . $DisabledText);
   }
 }
