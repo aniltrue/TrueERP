@@ -8,7 +8,11 @@
 // Functions
 	
 function CheckPageRoles($conn, $UserEmail, $PageName) {
- $Roles = $conn->("SELECT * FROM UserRoles left join UserRoleTypes WHERE UserEmail = '" . $UserEmail . "' AND (PageName = '" . $PageName ."' OR RoleName = 'ROLE_ALL')");
+ $Roles = $conn("SELECT * FROM UserRoleTypes WHERE PageName = '" . $PageName . "'");
+ if($Roles->num_rows() == 0)
+	 return true;
+	
+ $Roles = $conn->("SELECT * FROM UserRoles natural join UserRoleTypes WHERE UserEmail = '" . $UserEmail . "' AND (PageName = '" . $PageName ."' OR RoleName = 'ROLE_ALL')");
  return $Roles->num_rows() > 0;
 }
 	
