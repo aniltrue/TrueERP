@@ -1,6 +1,11 @@
 <?php 
-include('head.php'); 
+include('class/head.php'); 
 include('class/AddClass.php');
+if(!CheckRoles($conn, $UserEmail, "PAGE_PAGENAME_ADD")) {
+	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Bu Sayfaya Yetkiniz Yok!</h3><br /><p>Anasayfaya dönmek için <a href="main.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>';
+	include('tail.php');
+	exit;
+}
 ?>
 
 <?php
@@ -72,4 +77,4 @@ echo '<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" name="Cr
 </form>';
 ?>
 
-<?php include('tail.php'); ?>
+<?php include('class/tail.php'); ?>
