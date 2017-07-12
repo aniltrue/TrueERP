@@ -54,14 +54,35 @@ class AddObject {
    echo '</div>';
   }
   
-	function drawCombo($SQL, $ValueColumn, $TextColumns) {
+	function drawCombo($conn, $SQL, $ValueColumn, $TextColumns) {
 		if($InputType != 'combo')
 			return;
 		
 		echo '<div class="w3-row w3-section">';
 		drawTitle();
 		
+		echo '<option value="" disabled selected>' . $PlaceHolder . '</option>';
 		
+		$Options = $conn->query($SQL);
+		
+		if($Options->num_rows == 0) {
+			echo '</div>';
+			return;
+		}
+		
+		while($Option = $Options->fetch_assoc()) {
+			$ValueText = 'value="' . $Option[$ValueColumn] . '"';
+			$Text = "";
+			
+			foreach($TextColumn as $TextColumns) {
+				if(!empty($Text))
+					$Text = $Text . " - ";
+				
+				$Text = $Text . $Option[$TextColumn];
+			}
+			
+			echo '<option ' . $ValueText . '>' . trim($Text) . '</option>';
+		}
 		
 		echo '</div>';
 	}
