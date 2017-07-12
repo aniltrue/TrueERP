@@ -35,7 +35,7 @@ class AddObject {
      return;
    
 	 echo '<div class="w3-row w3-section">';
-   drawTitle();
+	 drawTitle();
 	 
 	 $InputText = 'type="' . $InputType . '"';
 	 if($InputType === 'year')
@@ -59,7 +59,7 @@ class AddObject {
 			return;
 		
 		echo '<div class="w3-row w3-section">';
-    drawTitle();
+		drawTitle();
 		
 		
 		
