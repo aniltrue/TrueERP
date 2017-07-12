@@ -77,16 +77,16 @@ $userInfo = array($rw["UserName"], $rw["UserSurname"], $rw["UserPhone"], $rw["St
 	$mainmenus = $conn->query("SELECT * FROM MainMenu left join Pages WHERE MainMenuParent = 0");
 	while($mainmenu = $mainmenus->fetch_assoc()) {
 		if(!empty($mainmenu["PageURL"]) && CheckPageRoles($conn, $UserEmail, $childmenu["PageName"]))
-			echo '<a href="' . $mainmenu["PageURL"] . '" class="w3-bar-item w3-button w3-animate-right">' . $mainmenu["MainMenuText"] . '</a>';	
+			echo '<a href="' . $mainmenu["PageURL"] . '" class="w3-bar-item w3-button w3-animate-right">' . $mainmenu["PageDescription"] . '</a>';	
 		else {
 			echo '<div class="w3-dropdown-hover">
 			<button class="w3-button w3-animate-right">' . $mainmenu["MainMenuText"] . '</button>
             <div class="w3-dropdown-content w3-bar-block w3-card-4">';
 			
-			$childmenus = $conn->query("SELECT * FROM MainMenu natural join Page WHERE MainMenuParent = " . $mainmenu["MainMenuID"]);
+			$childmenus = $conn->query("SELECT * FROM MainMenu natural join Pages WHERE MainMenuParent = " . $mainmenu["MainMenuID"]);
 			while($childmenu = $childmenus->fetch_assoc()) {
 				if(CheckPageRoles($conn, $UserEmail, $childmenu["PageName"]))
-					echo '<a href="' . $childmenu["PageURL"] . '" class="w3-bar-item w3-button">' . $childmenu["MainMenuText"] . '</a>';
+					echo '<a href="' . $childmenu["PageURL"] . '" class="w3-bar-item w3-button">' . $childmenu["PageDescription"] . '</a>';
 			}
 			
 			echo '</div>
