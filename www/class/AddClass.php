@@ -1,98 +1,48 @@
 <?php
 class InputTypes {
- const $Text = 'text';
- const $Number = 'number'; 
- const $Date = 'date';
- const $Year = 'year';
- const $TextArea = 'textArea';
- const $ComboBox = 'comboBox';
- const $List = 'list'; 
+ const Text = 'text';
+ const Email = 'email';
+ const Password = 'password';
+ const Number = 'number'; 
+ const Date = 'date';
+ const Year = 'year';
+ const TextArea = 'textArea';
+ const ComboBox = 'comboBox';
+ const ListBox = 'list'; 
 }
 
 class ObjectTypes {
- const $Common = 0;
- const $ShowOnly = 1;
- const $Required = 2;
+ const Common = 0;
+ const ShowOnly = 1;
+ const Required = 2;
 }
 
 class ComboHelp {
 	var $conn, $SQL, $ValueColumn, $TextColumns;
 	
-	function __constructor($conn, $SQL, $ValueColumn, $TextColumns) {
-		$this->$conn = $conn;
-		$this->$SQL = $SQL;
-		$this->$ValueColumn = $ValueColumn;
-		$this->$TextColumns = $TextColumns;
+	function __construct($conn, $SQL, $ValueColumn, $TextColumns) {
+		$this->conn = $conn;
+		$this->SQL = $SQL;
+		$this->ValueColumn = $ValueColumn;
+		$this->TextColumns = $TextColumns;
 	}
-}
-
-class AddObject {
-  var $ColumnName, $ColumnText, $InputType, $ObjectType, $PlaceHolder, $IsRequired, $IsUnique;
-  var $ComboHelp;
-  
-  function __constructor($ColumnName, $ColumnText, $InputType, $ObjectType) {
-   $this->$ColumnName = $ColumnName;
-   $this->$ColumnText = $ColumnText;
-   $this->$InputType = $InputType;
-   $this->$ObjectType = $ObjectType;
-   $this->$PlaceHolder = $ColumnText;
-   $IsRequired = true;
-   $IsUnique = false;
-   $ComboHelp = null;
-  }
-  
-  function draw() {
-   if($InputType === 'combo') {
-		 drawCombo();
-     return;
-	 }
-   
-	 $now = new DateTime('now');
-		
-	 echo '<div class="w3-row w3-section">';
-	 drawTitle();
-	 
-	 $InputText = 'type="' . $InputType . '"';
-	 if($InputType === 'year')
-		 $InputText = 'type="number"';
-   
-	 $PlaceHolderText = 'placeholder="' . $PlaceHolder . '"';
-	 
-	 $ValueText = 'value=""';
-	 if($InputType === 'year')
-		 $ValueText = 'value="' . $now()->format("Y") . '"';
-	 elseif($InputType === 'date')
-		 $ValueText = 'value="' . $now()->format("d.M.Y") . '"';
 	
-	 echo '<input ' $InputText . ' ' $ValueText . ' ' . $PlaceHolderText . ' ' . getPropertiesText() . ' />'; 
-	 
-   echo '</div>';
-  }
-  
-	private function drawCombo() {
-		if($InputType != 'combo')
+	function ComboText() {
+		$ComboText = "";
+		
+		$Options = $this->conn->query($this->SQL);
+		
+		if($Options->num_rows == 0) 
 			return;
-		
-		echo '<div class="w3-row w3-section">';
-		drawTitle();
-		
-		echo '<option value="" disabled selected>' . $PlaceHolder . '</option>';
-		
-		$Options = $ComboHelp->$conn->query($ComboHelp->$SQL);
-		
-		if($Options->num_rows == 0) {
-			echo '</div>';
-			return;
-		}
 		
 		while($Option = $Options->fetch_assoc()) {
-			$ValueText = 'value="' . $Option[$ComboHelp->$ValueColumn] . '"';
+			$ValueText = 'value="' . $Option[$this->ValueColumn] . '"';
 			$Text = "";
 			
-			if(is_string($ComboHelp->$TextColumns))
-				$Text = $Option[$ComboHelp->$TextColumns];
+			if(is_string($this->TextColumns))
+				$Text = $Option[$this->TextColumns];
 			else {
-				foreach($TextColumn as $ComboHelp->$TextColumns) {
+				foreach($this->TextColumns as $TextColumn) {
 					if(!empty($Text))
 						$Text = $Text . " - ";
 				
@@ -100,27 +50,82 @@ class AddObject {
 				}
 			}
 			
-			echo '<option ' . $ValueText . '>' . trim($Text) . '</option>';
+			$ComboText = $ComboText . '<option ' . $ValueText . '>' . trim($Text) . '</option>';
 		}
 		
+		return $ComboText;
+	}
+}
+
+class AddObject {
+  var $ColumnName, $ColumnText, $InputType, $ObjectType, $PlaceHolder, $IsRequired, $IsUnique, $ComboHelp;
+  
+  function __construct($ColumnName, $ColumnText, $InputType, $ObjectType) {
+   $this->ColumnName = $ColumnName;
+   $this->ColumnText = $ColumnText;
+   $this->InputType = $InputType;
+   $this->ObjectType = $ObjectType;
+   $this->PlaceHolder = $ColumnText;
+   $this->IsRequired = true;
+   $this->IsUnique = false;
+   $this->ComboHelp = null;
+  }
+  
+  function draw() {
+   if($this->InputType === 'comboBox') {
+		 $this->drawCombo();
+     return;
+	 }
+   
+	 $now = new DateTime('now');
+		
+	 echo '<div class="w3-row w3-section">';
+	 $this->drawTitle();
+	 
+	 $InputText = 'type="' . $this->InputType . '"';
+	 if($this->InputType === 'year')
+		 $InputText = 'type="number"';
+   
+	 $PlaceHolderText = 'placeholder="' . $this->PlaceHolder . '"';
+	 
+	 $ValueText = 'value=""';
+	 if($this->InputType === 'year')
+		 $ValueText = 'value="' . $now()->format("Y") . '"';
+	 elseif($this->InputType === 'date')
+		 $ValueText = 'value="' . $now()->format("d.M.Y") . '"';
+	
+	 echo '<input ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $this->getPropertiesText() . ' />'; 
+	 
+   echo '</div>';
+  }
+  
+	private function drawCombo() {
+		echo '<div class="w3-row w3-section">';
+		$this->drawTitle();
+		echo '<select class="w3-select w3-border" ' . $this->getPropertiesText() . '>';
+		echo '<option value="" disabled selected>' . $this->PlaceHolder . '</option>';
+		
+		echo $this->ComboHelp->ComboText();
+		
+		echo '</select>';
 		echo '</div>';
 	}
 	
   private function drawTitle() {
-	 if($IsRequired)
-		 echo '<p>' . $ColumnText . '<label class="w3-text-red">*</label></p>';
+	 if($this->IsRequired)
+		 echo '<p>' . $this->ColumnText . '<label class="w3-text-red">*</label></p>';
 	 else
-		 echo '<p>' . $ColumnText . '</p>';
+		 echo '<p>' . $this->ColumnText . '</p>';
   }
   
   private function getPropertiesText() {
    $DisabledText = "";
-	 if($ObjectType != 0)
+	 if($this->ObjectType != 0)
 		 $DisabledText = "disabled";
 		
 	 $NameText = "";
-	 if($ObjectType != 1)
-	  $NameText = 'name="' . $ColumnName . '"';
+	 if($this->ObjectType != 1)
+	  $NameText = 'name="' . $this->ColumnName . '"';
 
    return trim($NameText . " " . $DisabledText);
   }

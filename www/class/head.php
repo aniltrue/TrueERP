@@ -8,23 +8,23 @@
 // Functions
 	
 function CheckPageRoles($conn, $UserEmail, $PageName) {
- $Roles = $conn("SELECT * FROM UserRoleTypes WHERE PageName = '" . $PageName . "'");
- if($Roles->num_rows() == 0)
+ $Roles = $conn->query("SELECT * FROM UserRoleTypes WHERE PageName = '" . $PageName . "'");
+ if($Roles->num_rows == 0)
 	 return true;
 	
- $Roles = $conn->("SELECT * FROM UserRoles natural join UserRoleTypes WHERE UserEmail = '" . $UserEmail . "' AND (PageName = '" . $PageName ."' OR RoleName = 'ROLE_ALL')");
- return $Roles->num_rows() > 0;
+ $Roles = $conn->query("SELECT * FROM UserRoles natural join UserRoleTypes WHERE UserEmail = '" . $UserEmail . "' AND (PageName = '" . $PageName . "' OR RoleName = 'ROLE_ALL')");
+ return $Roles->num_rows > 0;
 }
 	
 function CheckRoles($conn, $UserEmail, $RoleName) {
- $Roles = $conn->("SELECT * FROM UserRoles WHERE UserEmail = '" . $UserEmail . "' AND (RoleName = '" . $RoleName ."' OR RoleName = 'ROLE_ALL')");
- return $Roles->num_rows() > 0;
+ $Roles = $conn->query("SELECT * FROM UserRoles WHERE UserEmail = '" . $UserEmail . "' AND (RoleName = '" . $RoleName ."' OR RoleName = 'ROLE_ALL')");
+ return $Roles->num_rows > 0;
 }
 ?>
 	
 <?php
 // Create Constants
-$conn = new mysqli("localhost:3306", "root", "", "DegerTarim");	
+$conn = new mysqli("localhost:3306", "root", "", "TrueERP");	
 if($conn->connect_error){
      die('<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Hata!</h3><br /><p>Bağlantı hatası: ' . $conn->connect_error . '<br />Tekrar deneyiniz.</p></div>');
 }
@@ -33,7 +33,7 @@ $now = new DateTime('now');
 
 ?>
 
-<title>Bla Bla</title>
+<title>TRUE - ERP</title>
 </head>
 
 <body class="w3-light-grey">
@@ -58,19 +58,19 @@ if($result->num_rows <= 0) {
 }
 	
 $User = $result->fetch_assoc();
-$Password = md5($rw["UserPassword"] . "_dg");
-if($Password != $_SESSION["user"]) {
+$Password = md5($User["UserPassword"] . "_dg");
+if($Password != $_SESSION["user"] || !$User["UserEnable"]) {
 	session_destroy();
 	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>Üye girişi yapmak için <a href="index.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>';
 	include('tail.php');
 	exit;
 }
-$userInfo = array($rw["UserName"], $rw["UserSurname"], $rw["UserPhone"], $rw["StartDate"]);
+$userInfo = array($User["UserName"], $User["UserSurname"], $User["UserPhone"], $User["TitleName"], $User["UserEnable"]);
 
 ?>
 
 <div class="w3-container w3-border-bottom w3-border-lime w3-teal">
-	<h2>Bla Bla</h2>
+	<h2>TRUE ERP</h2>
     <p>Hoş Geldiniz, <?php echo $userInfo[0] . ' ' . $userInfo[1] ?>.</p>
 </div>
 
@@ -78,9 +78,9 @@ $userInfo = array($rw["UserName"], $rw["UserSurname"], $rw["UserPhone"], $rw["St
 	<div class="w3-bar w3-border-teal">
     <?php
 	
-	$mainmenus = $conn->query("SELECT * FROM MainMenu left join Pages WHERE MainMenuParent = 0");
+	$mainmenus = $conn->query("SELECT * FROM MainMenu left join Pages ON MainMenu.PageName = Pages.PageName WHERE MainMenuParent = 0");
 	while($mainmenu = $mainmenus->fetch_assoc()) {
-		if(!empty($mainmenu["PageURL"]) && CheckPageRoles($conn, $UserEmail, $childmenu["PageName"]))
+		if(!empty($mainmenu["PageURL"]) && CheckPageRoles($conn, $UserEmail, $mainmenu["PageName"]))
 			echo '<a href="' . $mainmenu["PageURL"] . '" class="w3-bar-item w3-button w3-animate-right">' . $mainmenu["PageDescription"] . '</a>';	
 		else {
 			echo '<div class="w3-dropdown-hover">
