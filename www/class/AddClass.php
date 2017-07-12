@@ -15,9 +15,20 @@ class ObjectTypes {
  const $Required = 2;
 }
 
+class ComboHelp {
+	var $conn, $SQL, $ValueColumn, $TextColumns;
+	
+	function __constructor($conn, $SQL, $ValueColumn, $TextColumns) {
+		$this->$conn = $conn;
+		$this->$SQL = $SQL;
+		$this->$ValueColumn = $ValueColumn;
+		$this->$TextColumns = $TextColumns;
+	}
+}
+
 class AddObject {
   var $ColumnName, $ColumnText, $InputType, $ObjectType, $PlaceHolder, $IsRequired, $IsUnique;
-  var $value;
+  var $ComboHelp;
   
   function __constructor($ColumnName, $ColumnText, $InputType, $ObjectType) {
    $this->$ColumnName = $ColumnName;
@@ -27,12 +38,14 @@ class AddObject {
    $this->$PlaceHolder = $ColumnText;
    $IsRequired = true;
    $IsUnique = false;
-   $value = null;
+   $ComboHelp = null;
   }
   
   function draw() {
-   if($InputType === 'combo')
+   if($InputType === 'combo') {
+		 drawCombo();
      return;
+	 }
    
 	 echo '<div class="w3-row w3-section">';
 	 drawTitle();
@@ -54,7 +67,7 @@ class AddObject {
    echo '</div>';
   }
   
-	function drawCombo($conn, $SQL, $ValueColumn, $TextColumns) {
+	private function drawCombo() {
 		if($InputType != 'combo')
 			return;
 		
@@ -63,7 +76,7 @@ class AddObject {
 		
 		echo '<option value="" disabled selected>' . $PlaceHolder . '</option>';
 		
-		$Options = $conn->query($SQL);
+		$Options = $ComboHelp->$conn->query($ComboHelp->$SQL);
 		
 		if($Options->num_rows == 0) {
 			echo '</div>';
@@ -71,13 +84,13 @@ class AddObject {
 		}
 		
 		while($Option = $Options->fetch_assoc()) {
-			$ValueText = 'value="' . $Option[$ValueColumn] . '"';
+			$ValueText = 'value="' . $Option[$ComboHelp->$ValueColumn] . '"';
 			$Text = "";
 			
-			if(is_string($TextColumns))
-				$Text = $Option[$TextColumns];
+			if(is_string($ComboHelp->$TextColumns))
+				$Text = $Option[$ComboHelp->$TextColumns];
 			else {
-				foreach($TextColumn as $TextColumns) {
+				foreach($TextColumn as $ComboHelp->$TextColumns) {
 					if(!empty($Text))
 						$Text = $Text . " - ";
 				
