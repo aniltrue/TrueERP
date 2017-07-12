@@ -74,11 +74,15 @@ class AddObject {
 			$ValueText = 'value="' . $Option[$ValueColumn] . '"';
 			$Text = "";
 			
-			foreach($TextColumn as $TextColumns) {
-				if(!empty($Text))
-					$Text = $Text . " - ";
+			if(is_string($TextColumns))
+				$Text = $Option[$TextColumns];
+			else {
+				foreach($TextColumn as $TextColumns) {
+					if(!empty($Text))
+						$Text = $Text . " - ";
 				
-				$Text = $Text . $Option[$TextColumn];
+					$Text = $Text . $Option[$TextColumn];
+				}
 			}
 			
 			echo '<option ' . $ValueText . '>' . trim($Text) . '</option>';
