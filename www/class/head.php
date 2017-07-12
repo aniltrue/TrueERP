@@ -8,12 +8,18 @@
 // Functions
 	
 function CheckPageRoles($conn, $UserEmail, $PageName) {
- $Roles = $conn->("SELECT * FROM UserRoles left join UserRoleTypes WHERE UserEmail = '" . $UserEmail . "' AND (PageName = '" . $PageName ."' OR RoleTypeName = 'ROLE_ALL')");
+ $Roles = $conn->("SELECT * FROM UserRoles left join UserRoleTypes WHERE UserEmail = '" . $UserEmail . "' AND (PageName = '" . $PageName ."' OR RoleName = 'ROLE_ALL')");
+ return $Roles->num_rows() > 0;
+}
+	
+function CheckRoles($conn, $UserEmail, $RoleName) {
+ $Roles = $conn->("SELECT * FROM UserRoles WHERE UserEmail = '" . $UserEmail . "' AND (RoleName = '" . $RoleName ."' OR RoleName = 'ROLE_ALL')");
  return $Roles->num_rows() > 0;
 }
 ?>
 	
 <?php
+// Create Constants
 $conn = new mysqli("localhost:3306", "root", "", "DegerTarim");	
 if($conn->connect_error){
      die('<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Hata!</h3><br /><p>Bağlantı hatası: ' . $conn->connect_error . '<br />Tekrar deneyiniz.</p></div>');
@@ -29,6 +35,7 @@ $now = new DateTime('now');
 <body class="w3-light-grey">
 
 <?php
+// Check Login
 session_start();
 if(!isset($_SESSION["user"]) || !isset($_SESSION["email"])) {
 	session_destroy();
