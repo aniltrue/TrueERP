@@ -51,7 +51,7 @@ if($isset($_POST["Create"])) {
 	
 	if($IsValid) {
 		$SQL = "INSERT INTO " . $TableName . " (" . $ColumnsSQL . ") VALUES (" . $ValuesSQL . ");";
-		$rslt = $conn->query("INSERT INTO " . $TableName . " (" . $ColumnsSQL . ") VALUES (" . $ValuesSQL . ")");
+		$rslt = $conn->query($SQL);
 		
 		if($rslt == true)
 			echo '<div class="w3-panel w3-green w3-margin w3-animate-opacity"><h3>Tebrikler!</h3><p><b>' $ObjectName '</b> başarıyla eklendi.</p></div>';
