@@ -2,9 +2,9 @@
 include('class/head.php');
 include('class/AddClass.php');
 $AddObjects = array();
-$TableName = "";
-$ObjectName = "";
-$PageName = "";
+$TableName = "Pages";
+$ObjectName = "Sayfa";
+$PageName = "PAGE_DEV_PAGE_ADD";
 // Create "Add Objects"
 
 $AddObjects[0] = new AddObject("PageName", "Sayfa Adı", InputTypes::Text, ObjectTypes::Common);
