@@ -32,13 +32,6 @@ CREATE TABLE UserRoleTypes (
 	FOREIGN KEY (PageName) REFERENCES Pages (PageName) ON DELETE CASCADE ON UPDATE CASCADE 
 );
 
-CREATE TABLE UserRoles (
-	UserEmail VARCHAR(32) NOT NULL,
-	RoleName VARCHAR(32) NOT NULL,
-	FOREIGN KEY (UserEmail) REFERENCES User (UserEmail) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (RoleName) REFERENCES UserRoleTypes (RoleName) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
 CREATE TABLE UserTitleRoles (
 	TitleName VARCHAR(32) NOT NULL,
 	RoleName VARCHAR(32) NOT NULL,
@@ -144,11 +137,6 @@ INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HR
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_UPDATE', 'PAGE_HRM_TITLE_ROLES_UPDATE', 'Ünvan rolü güncelleme (IK)');
 INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_TITLE_ROLES_REMOVE', 'PAGE_HRM_TITLE_ROLES_REMOVE', 'Ünvan rolü silme (IK)');
 
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_USER_ROLES_ADD', 'PAGE_HRM_USER_ROLES_ADD', 'Kullanıcı rolleri oluşturma (IK)');
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_USER_ROLES_SEARCH', 'PAGE_HRM_USER_ROLES_SEARCH', 'Kullanıcı rollerini görme (IK)');
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_USER_ROLES_UPDATE', 'PAGE_HRM_USER_ROLES_UPDATE', 'Kullanıcı rolleri güncelleme (IK)');
-INSERT INTO UserRoleTypes (RoleName, PageName, RoleDescription) VALUES ('ROLE_HRM_USER_ROLES_REMOVE', 'PAGE_HRM_USER_ROLES_REMOVE', 'Kullanıcı rolleri silme (IK)');
-
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_ADMIN', 'ROLE_ALL');
 
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_USER_ADD');
@@ -164,10 +152,6 @@ INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_TITLE_ROLES_SEARCH');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_TITLE_ROLES_UPDATE');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_TITLE_ROLES_REMOVE');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_USER_ROLES_ADD');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_USER_ROLES_SEARCH');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_USER_ROLES_UPDATE');
-INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_HRM', 'ROLE_HRM_USER_ROLES_REMOVE');
 
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_PAGE_ADD');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_PAGE_SEARCH');
@@ -184,5 +168,4 @@ INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROL
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_MAINMENU_UPDATE');
 INSERT INTO UserTitleRoles (TitleName, RoleName) VALUES ('TITLE_DEVELOPER', 'ROLE_DEV_MAINMENU_REMOVE');
 
-INSERT INTO User (UserEmail, UserName, UserSurname, UserPhone, UserPassword, TitleName) VALUES ('anildogru07@gmail.com', 'Anıl', 'Doğru', '5069540105', 'c8837b23ff8aaa8a2dde915473ce0991', 'Developer');
-INSERT INTO UserRoles (UserEmail, RoleName) VALUES ('anildogru07@gmail.com', 'ROLE_ALL');
+INSERT INTO User (UserEmail, UserName, UserSurname, UserPhone, UserPassword, TitleName) VALUES ('anildogru07@gmail.com', 'Anıl', 'Doğru', '5069540105', 'c8837b23ff8aaa8a2dde915473ce0991', 'TITLE_DEVELOPER');
