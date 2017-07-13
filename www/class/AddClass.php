@@ -95,7 +95,9 @@ class AddObject {
 	 elseif($this->InputType === 'date')
 		 $ValueText = 'value="' . $now()->format("d.M.Y") . '"';
 	
-	 echo '<input ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $this->getPropertiesText() . ' />'; 
+	 echo '<input ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $this->getPropertiesText() . ' />';
+	 if($this->InputType === "checkbox")
+		 echo '<label class="w3-text-black">' . $this->PlaceHolder . '</label>';
 	 
    echo '</div>';
   }
