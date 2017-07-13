@@ -55,7 +55,7 @@ foreach ($AddObjects as $AddObject)
 	$AddObject->Draw();
 
 
-echo '<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" name="Create">'. $ObjectName . ' Ekle</button>
+echo '<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" name="Create" id="CreateBtn">'. $ObjectName . ' Ekle</button>
 </form>';
 
 include('tail.php'); 
