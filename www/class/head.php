@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://code.jquery.com/jquery-1.7.min.js"></script>
 
 <?php
 // Functions
