@@ -1,5 +1,5 @@
 <?php 
-if(!CheckRoles($conn, $userInfo[2], $PageName)) {
+if(!CheckPageRoles($conn, $userInfo[2], $PageName)) {
 	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Bu Sayfaya Yetkiniz Yok!</h3><br /><p>Anasayfaya dönmek için <a href="main.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>';
 	include('tail.php');
 	exit;
@@ -23,9 +23,11 @@ if(isset($_POST["Create"])) {
 	$ValuesSQL = "";
 	
 	foreach ($AddObjects as $AddObject) {
-		if(empty($_POST[$AddObject->ColumnName]) && $AddObject->IsRequired == false) {
-			echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>' . $AddObject->ColumnText . ' girmeniz gerekiyor!</p></div>';
-			$IsValid = false;
+		if(empty($_POST[$AddObject->ColumnName])) {
+			if($AddObject->IsRequired) {
+				echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>' . $AddObject->ColumnText . ' girmeniz gerekiyor!</p></div>';
+				$IsValid = false;
+			}
 		} else {
 			if(!empty($ColumnsSQL)) {
 				$ColumnsSQL = $ColumnsSQL . ", ";
@@ -33,7 +35,10 @@ if(isset($_POST["Create"])) {
 			}
 				
 			$ColumnsSQL = $ColumnsSQL . $AddObject->ColumnName;
-			$ValuesSQL = $ValuesSQL . "'" . $conn->real_escape_string(trim($_POST[$AddObject->ColumnName])) . "'";
+			if($AddObject->InputType != "password")
+				$ValuesSQL = $ValuesSQL . "'" . $conn->real_escape_string(trim($_POST[$AddObject->ColumnName])) . "'";
+			else
+				$ValuesSQL = $ValuesSQL . "'" . md5($conn->real_escape_string(trim($_POST[$AddObject->ColumnName]))) . "'";
 		}
 	}
 	

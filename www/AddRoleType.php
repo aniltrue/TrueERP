@@ -5,7 +5,7 @@ include('class/AddClass.php');
 $AddObjects = array();
 $TableName = "UserRoleTypes";
 $ObjectName = "Rol Türü";
-$PageName = "PAGE_DEV_ROLE_TYPE_ADD";
+$PageName = "PAGE_DEV_ROLE_TYPES_ADD";
 // Create "Add Objects"
 
 $AddObjects[0] = new AddObject("RoleName", "Rol Adı", InputTypes::Text, ObjectTypes::Common);

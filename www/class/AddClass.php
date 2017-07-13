@@ -136,7 +136,7 @@ class AddObject {
 	elseif($this->InputType === "combobox")
 		$ClassText = 'class="w3-select w3-border"';
 		
-	$IDText = 'id="' . $this->ColumnsName . '"';
+	$IDText = 'id="' . $this->ColumnName . '"';
 		
   return trim($NameText . " " . $DisabledText . " " . $ClassText . " " . $IDText);
   }
