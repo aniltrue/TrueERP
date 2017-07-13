@@ -5,6 +5,7 @@ class InputTypes {
  const Password = 'password';
  const Number = 'number'; 
  const Date = 'date';
+ const CheckBox = 'checkbox';
  const Year = 'year';
  const TextArea = 'textArea';
  const ComboBox = 'comboBox';
@@ -127,7 +128,13 @@ class AddObject {
 	 if($this->ObjectType != 1)
 	  $NameText = 'name="' . $this->ColumnName . '"';
 
-   return trim($NameText . " " . $DisabledText);
+	$ClassText = 'class="w3-input w3-border"';	
+	if($this->InputType === "checkbox")
+		$ClassText = 'class="w3-check"';
+	elseif($this->InputType === "combobox")
+		$ClassText = 'class="w3-select w3-border"';
+		
+  return trim($NameText . " " . $DisabledText);
   }
 }
 ?>
