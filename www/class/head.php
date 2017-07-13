@@ -7,17 +7,17 @@
 <?php
 // Functions
 	
-function CheckPageRoles($conn, $UserEmail, $PageName) {
+function CheckPageRoles($conn, $UserTitle, $PageName) {
  $Roles = $conn->query("SELECT * FROM UserRoleTypes WHERE PageName = '" . $PageName . "'");
  if($Roles->num_rows == 0)
 	 return true;
 	
- $Roles = $conn->query("SELECT * FROM UserRoles natural join UserRoleTypes WHERE UserEmail = '" . $UserEmail . "' AND (PageName = '" . $PageName . "' OR RoleName = 'ROLE_ALL')");
+ $Roles = $conn->query("SELECT * FROM UserTitleRoles natural join UserRoleTypes WHERE TitleName = '" . $UserTitle . "' AND (PageName = '" . $PageName . "' OR RoleName = 'ROLE_ALL')");
  return $Roles->num_rows > 0;
 }
 	
-function CheckRoles($conn, $UserEmail, $RoleName) {
- $Roles = $conn->query("SELECT * FROM UserRoles WHERE UserEmail = '" . $UserEmail . "' AND (RoleName = '" . $RoleName ."' OR RoleName = 'ROLE_ALL')");
+function CheckRoles($conn, $UserTitle, $RoleName) {
+ $Roles = $conn->query("SELECT * FROM UserTitleRoles WHERE TitleName = '" . $UserTitle . "' AND (RoleName = '" . $RoleName ."' OR RoleName = 'ROLE_ALL')");
  return $Roles->num_rows > 0;
 }
 ?>
@@ -65,7 +65,7 @@ if($Password != $_SESSION["user"] || !$User["UserEnable"]) {
 	include('tail.php');
 	exit;
 }
-$userInfo = array($User["UserName"], $User["UserSurname"], $User["UserPhone"], $User["TitleName"], $User["UserEnable"]);
+$userInfo = array($User["UserName"], $User["UserSurname"], $User["TitleName"], $User["UserPhone"], $User["UserEnable"]);
 
 ?>
 
@@ -80,7 +80,7 @@ $userInfo = array($User["UserName"], $User["UserSurname"], $User["UserPhone"], $
 	
 	$mainmenus = $conn->query("SELECT * FROM MainMenu left join Pages ON MainMenu.PageName = Pages.PageName WHERE MainMenuParent = 0");
 	while($mainmenu = $mainmenus->fetch_assoc()) {
-		if(!empty($mainmenu["PageURL"]) && CheckPageRoles($conn, $UserEmail, $mainmenu["PageName"]))
+		if(!empty($mainmenu["PageURL"]) && CheckPageRoles($conn, $userInfo[2], $mainmenu["PageName"]))
 			echo '<a href="' . $mainmenu["PageURL"] . '" class="w3-bar-item w3-button w3-animate-right">' . $mainmenu["PageDescription"] . '</a>';	
 		else {
 			echo '<div class="w3-dropdown-hover">
@@ -89,7 +89,7 @@ $userInfo = array($User["UserName"], $User["UserSurname"], $User["UserPhone"], $
 			
 			$childmenus = $conn->query("SELECT * FROM MainMenu natural join Pages WHERE MainMenuParent = " . $mainmenu["MainMenuID"]);
 			while($childmenu = $childmenus->fetch_assoc()) {
-				if(CheckPageRoles($conn, $UserEmail, $childmenu["PageName"]))
+				if(CheckPageRoles($conn, $userInfo[2], $childmenu["PageName"]))
 					echo '<a href="' . $childmenu["PageURL"] . '" class="w3-bar-item w3-button">' . $childmenu["PageDescription"] . '</a>';
 			}
 			
