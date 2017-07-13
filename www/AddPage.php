@@ -12,7 +12,7 @@ $AddObjects[1] = new AddObject("PageURL", "Sayfa Adresi", InputTypes::Text, Obje
 $AddObjects[1]->PlaceHolder = "page.php";
 $AddObjects[2] = new AddObject("PageDescription", "Sayfa Açıklaması", InputTypes::Text, ObjectTypes::Common);
 $AddObjects[3] = new AddObject("PageEnable", "Sayfa Onayı", InputTypes::CheckBox, ObjectTypes::Common);
-$AddObjects[3]->PlaceHolder = "true";
+$AddObjects[3]->PlaceHolder = "Sayfanın kullanılabilmesi için onaylanması lazım.";
 
 ?>
 
