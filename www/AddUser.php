@@ -18,3 +18,7 @@ $AddObjects[5]->PlaceHolder = "Bir ünvan seçiniz.";
 ?>
 
 <?php include("class/Add.php"); ?>
+
+<script>
+  
+</script>
