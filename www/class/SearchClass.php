@@ -17,8 +17,8 @@ class SearchObject {
    $this->IsExl = $IsExl;
   }
   
-  function draw($Rows) {
-   return $Rows[$this->ColumnName]; 
+  function draw($Row) {
+   return $Row[$this->ColumnName]; 
   }
 }
 
@@ -36,10 +36,10 @@ class LinkObject extends SearchObject {
   
  }
  
- function __draw($Rows) {
+ function __draw($Row) {
   $ReferansText = "";
   if(!empty($this->ReferansColumn))
-   $ReferansText = '?' . $this->ReferansColumn . '=' . $Rows[$this->ReferansColumn];
+   $ReferansText = '?' . $this->ReferansColumn . '=' . $Row[$this->ReferansColumn];
   
   $URLText = 'href="' . $this->Page["PageURL"] . $ReferansText . '"';
   if($this->RoleCheck == false) {
