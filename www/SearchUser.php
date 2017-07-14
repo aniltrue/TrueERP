@@ -23,7 +23,8 @@ $SearchObjects[2] = new SearchObject("UserSurname", true);
 $SearchObjects[3] = new SearchObject("TitleDescription", true);
 $SearchObjects[4] = new SearchObject("UserPhone", true);
 $SearchObjects[5] = new LinkObject("PAGE_HRM_USER_UPDATE", $conn, $userInfo[2], "UserEmail");
-$SearchObjects[6] = new LinkObject("PAGE_HRM_USER_REMOVE", $conn, $userInfo[2], "UserEmail");
+$SearchObjects[6] = new LinkObject("PAGE_HRM_USER_PASSWORD_RESET", $conn, $userInfo[2], "UserEmail");
+$SearchObjects[7] = new LinkObject("PAGE_HRM_USER_REMOVE", $conn, $userInfo[2], "UserEmail");
 
 ?>
 
