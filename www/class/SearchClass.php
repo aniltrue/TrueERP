@@ -1,5 +1,37 @@
 <?php
 
+class InputTypes {
+ const Text = 'text';
+ const Email = 'email';
+ const Password = 'password';
+ const Number = 'number'; 
+ const Date = 'date';
+ const CheckBox = 'checkbox';
+ const Year = 'year';
+ const TextArea = 'textArea';
+ const ComboBox = 'comboBox'; 
+}
+
+class InputObjects {
+  var $ColumnName, $Text, $InputType;
+  var $ComboHelp;
+  
+  function __construct($ColumnName, $Text, $InputType) {
+    $this->ColumnName = $ColumnName;
+    $this->Text = $Text;
+    $this->InputType = $InputType;
+  }
+  
+  function draw() {
+    if($this->InputType === 'comboBox') {
+		  $this->drawCombo();
+      return;
+    }
+    
+    // TODO
+  }
+}
+
 class SearchObject {
   var $ColumnName, $Text, $IsExl;
   
