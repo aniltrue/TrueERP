@@ -1,10 +1,12 @@
 <?php 
+// Check Roles
 if(!CheckPageRoles($conn, $userInfo[2], $PageName)) {
 	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Bu Sayfaya Yetkiniz Yok!</h3><br /><p>Anasayfaya dönmek için <a href="main.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>';
 	include('tail.php');
 	exit;
 }
 
+// Check Reqirements
 foreach ($AddObjects as $AddObject) {
   if($AddObject->ObjectType != 2)
     continue;
@@ -17,6 +19,7 @@ foreach ($AddObjects as $AddObject) {
   exit;	
 }
 
+// Create
 if(isset($_POST["Create"])) {
 	$IsValid = true;
 	$ColumnsSQL = "";
@@ -53,6 +56,7 @@ if(isset($_POST["Create"])) {
 	}
 }
 
+// Add Form
 echo '<form action="#" method="post" class="w3-container w3-text-green">
 <h3>' . $ObjectName . ' Ekle</h3>';
 
