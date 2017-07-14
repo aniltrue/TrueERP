@@ -76,18 +76,18 @@ echo '<p class="w3-center">Toplam ' . count($Rows) . ' sonuç bulundu.</p>';
 echo '<table class="w3-table-all" id="results">';
 
 echo '<tr class="w3-teal">';
-foreach($TableHeader as $TableHeaders) {
-  if($TableHeader->IsExl)
-    echo '<th><b>' . $TableHeader->Text . '</b></th>';
+foreach($SearchObject as $SearchObjects) {
+  if($SearchObject->IsExl)
+    echo '<th><b>' . $SearchObject->Text . '</b></th>';
   else
-    echo '<th class="noExl"><b>' . $TableHeader->Text . '</b></th>';
+    echo '<th class="noExl"><b>' . $SearchObject->Text . '</b></th>';
 }
 echo '</tr>';
 
 foreach($Row as $Rows) {
  echo '<tr>';
  foreach($SearchObject as $SearchObjects) {
-   if($TableHeader->IsExl)
+   if($SearchObject->IsExl)
     echo '<td>' . $SearchObject->Draw($Row) . '</td>';
    else
     echo '<td class="noExl">' . $SearchObject->Draw($Row) . '</td>';
