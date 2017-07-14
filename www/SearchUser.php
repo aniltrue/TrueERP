@@ -4,7 +4,6 @@ include('class/SearchClass.php');
 $ObjectName = "Kullanıcı";
 $PageName = "PAGE_HRM_USER_SEARCH";
 $SearchSQL = "SELECT * FROM User natural join UserTitles ORDER BY UserName, UserSurname ASC";
-$SpecialSQL = "";
 $TableHeaders = array();
 $SearchObjects = array();
 // Create "Table Headers" and "Search Objects"
