@@ -48,19 +48,6 @@ while($row = $rslt1->fetch_assoc()) {
 		$Text = $Text . " " . $r;
 	}
 	
-	if(!empty($SpecialSQL)) {
-		$rslt2 = $conn->query("SELECT * FROM (Product natural join Farmer) natural join (Village natural join District)");
-		
-		if($rslt2 == true) {
-			while($r = $rslt2->fetch_assoc()) {
-				if ($r["TCID"] != $row["TCID"])
-					continue;
-				
-				$Text = $Text . " " . $r["ProductTypeName"] . " " . $r["CityName"] . " " . $r["DistrictName"] . " " . $r["VillageName"];
-			}
-		}
-	}
-	
 	$Text = trim($Text);
 	$IsValid = true;
 
