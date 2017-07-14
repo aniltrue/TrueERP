@@ -26,8 +26,8 @@ class LinkObject extends SearchObject {
  var $PageName, $ReferansColumn;
  var $RoleCheck, $Page;
  
- function __construct($ColumnName, $PageName, $conn, $UserTitle, $ReferansColumn) {
-  parent::__construct($ColumnName, false);
+ function __construct($PageName, $conn, $UserTitle, $ReferansColumn) {
+  parent::__construct(null, false);
   $this->PageName = $PageName;
   $this->ReferansColumn = $ReferansColumn;
   
