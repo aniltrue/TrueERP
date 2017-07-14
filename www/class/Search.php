@@ -95,9 +95,9 @@ foreach($Row as $Rows) {
  echo '<tr>';
  foreach($SearchObject as $SearchObjects) {
    if($TableHeader->IsExl)
-    echo '<th>' . $TableHeader->Draw() . '</th>';
+    echo '<td>' . $SearchObject->Draw($Row) . '</td>';
    else
-    echo '<th class="noExl">' . $TableHeader->Draw() . '</th>';
+    echo '<td class="noExl">' . $SearchObject->Draw($Row) . '</td>';
  }
  echo '</tr>';
 }
