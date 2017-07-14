@@ -4,26 +4,25 @@ include('class/SearchClass.php');
 $ObjectName = "Kullanıcı";
 $PageName = "PAGE_HRM_USER_SEARCH";
 $SearchSQL = "SELECT * FROM User natural join UserTitles ORDER BY UserName, UserSurname ASC";
-$TableHeaders = array();
+$InputObjects = array();
 $SearchObjects = array();
-// Create "Table Headers" and "Search Objects"
+// Create "Input Objects" and "Search Objects"
 
-$TableHeaders[0] = new TableHeader("E-Posta", true);
-$TableHeaders[1] = new TableHeader("Ad", true);
-$TableHeaders[2] = new TableHeader("Soyad", true);
-$TableHeaders[3] = new TableHeader("Ünvan", true);
-$TableHeaders[4] = new TableHeader("Telefon", true);
-$TableHeaders[5] = new TableHeader("Güncelle", false);
-$TableHeaders[6] = new TableHeader("Sil", false);
+$InputObjects[0] = new InputObject("UserEmail", "E-Posta", InputType::Email);
+$InputObjects[1] = new InputObject("UserName", "Ad", InputType::Text);
+$InputObjects[2] = new InputObject("UserSurname", "Soyad", InputType::Text);
+$InputObjects[3] = new InputObject("TitleName", "Ünvan", InputType::Combo);
+$InputObjects[3]->ComboHelp = new ComboHelp("SELECT * FROM UserTitles", "TitleName", "TitleDescription");
+$InputObjects[4] = new InputObject("UserPhone", "Telefon", InputType::Text);
 
-$SearchObjects[0] = new SearchObject("UserEmail", true);
-$SearchObjects[1] = new SearchObject("UserName", true);
-$SearchObjects[2] = new SearchObject("UserSurname", true);
-$SearchObjects[3] = new SearchObject("TitleDescription", true);
-$SearchObjects[4] = new SearchObject("UserPhone", true);
-$SearchObjects[5] = new LinkObject("PAGE_HRM_USER_UPDATE", $conn, $userInfo[2], "UserEmail");
-$SearchObjects[6] = new LinkObject("PAGE_HRM_USER_PASSWORD_RESET", $conn, $userInfo[2], "UserEmail");
-$SearchObjects[7] = new LinkObject("PAGE_HRM_USER_REMOVE", $conn, $userInfo[2], "UserEmail");
+$SearchObjects[0] = new SearchObject("UserEmail", "E-Posta", true);
+$SearchObjects[1] = new SearchObject("UserName", "Ad", true);
+$SearchObjects[2] = new SearchObject("UserSurname", "Soyad", true);
+$SearchObjects[3] = new SearchObject("TitleDescription", "Ünvan", true);
+$SearchObjects[4] = new SearchObject("UserPhone", "Telefon", true);
+$SearchObjects[5] = new LinkObject("Güncelle", "PAGE_HRM_USER_UPDATE", $conn, $userInfo[2], "UserEmail");
+$SearchObjects[6] = new LinkObject("Parola Değiştir", "PAGE_HRM_USER_PASSWORD_RESET", $conn, $userInfo[2], "UserEmail");
+$SearchObjects[7] = new LinkObject("Sil", "PAGE_HRM_USER_REMOVE", $conn, $userInfo[2], "UserEmail");
 
 ?>
 
