@@ -9,7 +9,6 @@ class InputTypes {
  const Year = 'year';
  const TextArea = 'textArea';
  const ComboBox = 'comboBox';
- const ListBox = 'list'; 
 }
 
 class ObjectTypes {
