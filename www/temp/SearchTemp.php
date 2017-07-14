@@ -5,9 +5,9 @@ include('class/SearchClass.php');
 $ObjectName = "";
 $PageName = "";
 $SearchSQL = "";
-$TableHeaders = array();
+$InputObjects = array();
 $SearchObjects = array();
-// Create "Table Headers" and "Search Objects"
+// Create "Input Objects" and "Search Objects"
 
 
 
