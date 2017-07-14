@@ -1,19 +1,11 @@
 <?php
 
-class TableHeader {
- var $Text, $IsExl;
- 
- function __construct($Text, $IsExl) {
-  $this->Text = $Text;
-  $this->IsExl = $IsExl;
- }
-}
-
 class SearchObject {
-  var $ColumnName, $IsExl;
+  var $ColumnName, $Text, $IsExl;
   
-  function __construct($ColumnName, $IsExl) {
+  function __construct($ColumnName, $Text, $IsExl) {
    $this->ColumnName = $ColumnName;
+   $this->Text = $Text;
    $this->IsExl = $IsExl;
   }
   
@@ -26,8 +18,8 @@ class LinkObject extends SearchObject {
  var $PageName, $ReferansColumn;
  var $RoleCheck, $Page;
  
- function __construct($PageName, $conn, $UserTitle, $ReferansColumn) {
-  parent::__construct(null, false);
+ function __construct($Text, $PageName, $conn, $UserTitle, $ReferansColumn) {
+  parent::__construct(null, $Text, false);
   $this->PageName = $PageName;
   $this->ReferansColumn = $ReferansColumn;
   
