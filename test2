@@ -1,0 +1,169 @@
+*&---------------------------------------------------------------------*
+*& Report  ZSTJ_TEST_02
+*&
+*&---------------------------------------------------------------------*
+*&
+*&
+*&---------------------------------------------------------------------*
+
+REPORT ZSTJ_TEST_02.
+
+* WRITE KOMUTLARI
+* SELECTION SCREEN(1. SELECT OPTION / 2.PARAMETERS)
+* ARITMETIK ISLEMLER
+
+**********************************************************************
+* Standart User Datas.
+SELECTION-SCREEN BEGIN OF BLOCK SELECTION1 WITH FRAME TITLE TITLE1.
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN COMMENT (18) T1LINE1 FOR FIELD PNAME.
+PARAMETERS PNAME TYPE String.
+SELECTION-SCREEN END OF LINE.
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN COMMENT (18) T1LINE2 FOR FIELD PSURNAME.
+PARAMETERS PSURNAME TYPE String.
+SELECTION-SCREEN END OF LINE.
+SELECTION-SCREEN END OF BLOCK SELECTION1.
+SELECTION-SCREEN SKIP.
+
+**********************************************************************
+* Check if the entered number is even.
+SELECTION-SCREEN BEGIN OF BLOCK SELECTION2 WITH FRAME TITLE TITLE2.
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN COMMENT (18) T2LINE1 FOR FIELD MY_NUM.
+PARAMETERS MY_NUM TYPE I.
+SELECTION-SCREEN END OF LINE.
+SELECTION-SCREEN END OF BLOCK SELECTION2.
+SELECTION-SCREEN SKIP.
+
+**********************************************************************
+* Game
+SELECTION-SCREEN BEGIN OF BLOCK SELECTION3 WITH FRAME TITLE TITLE3.
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN COMMENT (18) T3LINE1 FOR FIELD PNUM.
+PARAMETERS PNUM TYPE I.
+SELECTION-SCREEN END OF LINE.
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN COMMENT (18) T3LINE2 FOR FIELD PMAX.
+PARAMETERS PMAX TYPE I.
+SELECTION-SCREEN END OF LINE.
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN COMMENT (18) T3LINE3 FOR FIELD PMIN.
+PARAMETERS PMIN TYPE I.
+SELECTION-SCREEN END OF LINE.
+SELECTION-SCREEN END OF BLOCK SELECTION3.
+SELECTION-SCREEN SKIP.
+
+**********************************************************************
+* MARA
+SELECTION-SCREEN BEGIN OF BLOCK SELECTION4 WITH FRAME TITLE TITLE4.
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN COMMENT (18) T4LINE1 FOR FIELD PERNAM.
+PARAMETERS PERNAM TYPE String.
+SELECTION-SCREEN END OF LINE.
+SELECTION-SCREEN END OF BLOCK SELECTION4.
+SELECTION-SCREEN SKIP.
+
+**********************************************************************
+* Text constants to display.
+CONSTANTS: TEXT_HELLOWORLD TYPE String VALUE 'Hoş geldiniz, Sayın',
+           TEXT_TIME TYPE String VALUE 'Saat: ',
+           TEXT_EVEN TYPE String VALUE
+           'Tebrikler, girdiğiniz sayı çifttir.',
+           TEXT_ODD TYPE String VALUE 'Hata! girdiğiniz sayı tektir.',
+           TEXT_BOUNDARY TYPE String VALUE 'Range must be between',
+           TEXT_GAME TYPE String VALUE 'tahminde sayıyı buldu.',
+           TEXT_EST TYPE String VALUE 'tahmin:',
+           TEXT_MARA TYPE String VALUE 'Sonuçlar...'.
+
+
+**********************************************************************
+* Display User Datas.
+WRITE: / TEXT_HELLOWORLD, PNAME, PSURNAME,
+       / TEXT_TIME, SY-UZEIT.
+ULINE.
+
+
+**********************************************************************
+* Display check whether my number is even.
+IF MY_NUM mod 2 = 0.
+  WRITE: / TEXT_EVEN.
+ELSE.
+  WRITE: / TEXT_ODD.
+ENDIF.
+ULINE.
+
+**********************************************************************
+* Game
+IF: PNUM BETWEEN PMIN + 1 AND PMAX - 1.
+  DATA: ESTIMATION TYPE I,
+        LOW_EST TYPE I,
+        HIGH_EST TYPE I,
+        STEP TYPE I VALUE 1.
+
+  LOW_EST = PMIN.
+  HIGH_EST = PMAX.
+  ESTIMATION = LOW_EST + HIGH_EST.
+  ESTIMATION = ESTIMATION / 2.
+  WRITE: / STEP, TEXT_EST, ESTIMATION.
+
+  WHILE PNUM <> ESTIMATION.
+    STEP = STEP + 1.
+    IF ESTIMATION > PNUM.
+      HIGH_EST = ESTIMATION.
+    ELSE.
+      LOW_EST = ESTIMATION.
+    ENDIF.
+    ESTIMATION = LOW_EST + HIGH_EST.
+    ESTIMATION = ESTIMATION / 2.
+    WRITE: / STEP, TEXT_EST, ESTIMATION.
+  ENDWHILE.
+
+  SKIP.
+  WRITE: / STEP, TEXT_GAME.
+ELSE.
+  WRITE: / TEXT_BOUNDARY, PMIN, 'and', PMAX.
+ENDIF.
+
+**********************************************************************
+* MARA Test
+TYPES: BEGIN OF MY_MARA,
+  MATNR LIKE MARA-MATNR,  " Artikel
+  ERNAM TYPE MARA-ERNAM,  " Yaratan
+  MAKTX TYPE MAKT-MAKTX,  " Artikel kısa metni
+END OF MY_MARA.
+
+DATA: IT_MARA TYPE TABLE OF MY_MARA,
+      R_MARA TYPE MY_MARA.
+
+SELECT MARA~MATNR
+       MARA~ERNAM
+       MAKT~MAKTX
+  INTO TABLE IT_MARA FROM MARA
+  INNER JOIN MAKT ON ( MARA~MATNR = MAKT~MATNR )
+  WHERE MARA~ERNAM = PERNAM.
+
+SKIP.
+WRITE: / TEXT_MARA.
+ULINE.
+LOOP AT IT_MARA INTO R_MARA.
+  WRITE: / R_MARA-MATNR, R_MARA-ERNAM, R_MARA-MAKTX.
+ENDLOOP.
+
+**********************************************************************
+INITIALIZATION.
+PERFORM SELECTION_SCREEN_TEXT.
+
+FORM SELECTION_SCREEN_TEXT.
+  TITLE1 = 'Kullanıcı Bilgilerinizi Giriniz.'.
+  T1LINE1 = 'Adınızı giriniz: '.
+  T1LINE2 = 'Soyadınınızı giriniz: '.
+  TITLE2 = 'Lütfen Bir Sayı Giriniz.'.
+  T2LINE1 = 'Sayı: '.
+  TITLE3 = 'Lütfen Bir Sayı Giriniz.'.
+  T3LINE1 = 'Sayı: '.
+  T3LINE2 = 'Üst limiti giriniz: '.
+  T3LINE3 = 'Alt limiti giriniz: '.
+  TITLE4 = 'Lütfen Bir Yaratıcı Giriniz.'.
+  T4LINE1 = 'ERNAM'.
+ENDFORM.
