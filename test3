@@ -1,0 +1,87 @@
+*&---------------------------------------------------------------------*
+*& Report  ZSTJ_TEST_03
+*&
+*&---------------------------------------------------------------------*
+*&
+*&
+*&---------------------------------------------------------------------*
+
+REPORT ZSTJ_TEST_03.
+
+**********************************************************************
+* First popup
+DATA: TFields LIKE SVAL OCCURS 0 WITH HEADER LINE,
+      Answer TYPE I.
+
+START-OF-SELECTION.
+
+TFields-tabname = 'MARA'.
+TFields-fieldname = 'ERNAM'.
+APPEND TFields.
+
+END-OF-SELECTION.
+
+CALL FUNCTION 'POPUP_GET_VALUES'
+EXPORTING
+  popup_title = 'Yaratıcı Bul'
+IMPORTING
+  RETURNCODE = Answer
+TABLES
+  fields = TFields
+EXCEPTIONS
+  error_in_fields = 1
+OTHERS = 2.
+
+**********************************************************************
+* Display results on console
+DATA: Name TYPE String.
+
+LOOP AT TFields.
+  Name = TFields-value.
+ENDLOOP.
+
+WRITE: / 'Yaratıcı Adı:', Name,
+       / 'Sonuçlar...'.
+ULINE.
+
+TYPES: BEGIN OF MY_MARA,
+  ERNAM LIKE MARA-ERNAM,
+  MATNR LIKE MARA-MATNR,
+  MAKTX LIKE MAKT-MAKTX,
+END OF MY_MARA.
+
+DATA: IT_MARA TYPE TABLE OF MY_MARA,
+      WA_MARA TYPE MY_MARA.
+
+SELECT
+  MARA~ERNAM
+  MARA~MATNR
+  MAKT~MAKTX
+INTO TABLE IT_MARA FROM MARA inner join MAKT
+  ON ( MARA~MATNR = MAKT~MATNR )
+WHERE MARA~ERNAM = Name.
+
+**********************************************************************
+* Display results in popup
+IF Answer = 0.
+  DATA index TYPE SY-TABIX.
+  
+  CALL FUNCTION 'POPUP_WITH_TABLE_DISPLAY'
+  EXPORTING
+    titletext = 'Sonuçlar'
+    endpos_col = 200
+    endpos_row = 20
+    startpos_col = 10
+    startpos_row = 5
+  IMPORTING
+    CHOISE = index
+  TABLES
+    valuetab = IT_MARA
+  EXCEPTIONS
+    error_in_fields = 1
+  OTHERS = 2.
+
+  IF sy-subrc <> 0.
+    
+  ENDIF.
+ENDIF.
