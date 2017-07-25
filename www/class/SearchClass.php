@@ -13,21 +13,46 @@ class InputTypes {
 }
 
 class InputObjects {
-  var $ColumnName, $Text, $InputType;
+  var $ColumnName, $Text, $InputType, $Value, $PlaceHolder;
   var $ComboHelp;
   
   function __construct($ColumnName, $Text, $InputType) {
     $this->ColumnName = $ColumnName;
     $this->Text = $Text;
     $this->InputType = $InputType;
+    $this->Value = "";
+    $this->PlaceHolder = $Text;
   }
   
   function draw() {
+    echo '<li>';
+    echo '<label>' . $this->Text . '</label>';
+
     if($this->InputType === 'comboBox') {
-		  $this->drawCombo();
+	    $this->drawCombo();
+      echo '</li>';
       return;
     }
     
+    $NameText = 'name="' . $this->ColumnName . '"';
+    $ValueText = 'value="' . $this->Value . '"';
+    $PlaceHolderText = 'placeholder="' . $this->PlaceHolder . '"';
+    $ClassText = 'class="w3-input w3-border"';	
+	  if($this->InputType === "checkbox")
+		  $ClassText = 'class="w3-check"';
+    
+    $InputText = 'type="' . $this->InputType . '"';
+	  if($this->InputType === 'year')
+		  $InputText = 'type="number"';
+    
+    echo '<input ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $ClassText . ' />';
+	  if($this->InputType === "checkbox")
+		  echo '<label class="w3-text-black">' . $this->PlaceHolder . '</label>';
+    
+    echo '</li>';
+  }
+  
+  private function drawCombo() {
     // TODO
   }
 }
