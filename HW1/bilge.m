@@ -20,7 +20,7 @@ for i = 2:n
   
   for j = 1:row
     fprintf('%d', i);
-    if j != row
+    if j ~= row
       fprintf(',');
     end
   end
