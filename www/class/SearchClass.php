@@ -12,6 +12,50 @@ class InputTypes {
  const ComboBox = 'comboBox'; 
 }
 
+class ComboHelp {
+	var $conn, $SQL, $ValueColumn, $TextColumns, $Value;
+	
+	function __construct($conn, $SQL, $ValueColumn, $TextColumns, $Value) {
+		$this->conn = $conn;
+		$this->SQL = $SQL;
+		$this->ValueColumn = $ValueColumn;
+		$this->TextColumns = $TextColumns;
+	}
+	
+	function ComboText() {
+		$ComboText = "";
+		
+		$Options = $this->conn->query($this->SQL);
+		
+		if($Options->num_rows == 0) 
+			return;
+		
+		while($Option = $Options->fetch_assoc()) {
+			$ValueText = 'value="' . $Option[$this->ValueColumn] . '"';
+      $SelectedText = "";
+      if ($Value == $Option[$this->ValueColumn]) 
+        $SelectedText = " selected";
+      
+			$Text = "";
+			
+			if(is_string($this->TextColumns))
+				$Text = $Option[$this->TextColumns];
+			else {
+				foreach($this->TextColumns as $TextColumn) {
+					if(!empty($Text))
+						$Text = $Text . " - ";
+				
+					$Text = $Text . $Option[$TextColumn];
+				}
+			}
+			
+			$ComboText = $ComboText . '<option ' . $ValueText . $SelectedText . '>' . trim($Text) . '</option>';
+		}
+		
+		return $ComboText;
+	}
+}
+
 class InputObjects {
   var $ColumnName, $Text, $InputType, $Value, $PlaceHolder;
   var $ComboHelp;
@@ -35,6 +79,7 @@ class InputObjects {
     }
     
     $NameText = 'name="' . $this->ColumnName . '"';
+    $IDText = 'id="' . $this->ColumnName . '"';
     $ValueText = 'value="' . $this->Value . '"';
     $PlaceHolderText = 'placeholder="' . $this->PlaceHolder . '"';
     $ClassText = 'class="w3-input w3-border"';	
@@ -45,7 +90,7 @@ class InputObjects {
 	  if($this->InputType === 'year')
 		  $InputText = 'type="number"';
     
-    echo '<input ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $ClassText . ' />';
+    echo '<input ' $NameText . ' ' . $IDText . ' ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $ClassText . ' />';
 	  if($this->InputType === "checkbox")
 		  echo '<label class="w3-text-black">' . $this->PlaceHolder . '</label>';
     
@@ -53,7 +98,15 @@ class InputObjects {
   }
   
   private function drawCombo() {
-    // TODO
+    echo '<select class="w3-select w3-border" name="' . $this->ColumnName . ' id="' . $this->ColumnName . '">';
+    if ($this->Value === "")
+      echo '<option value="">' . $this->PlaceHolder . '</option>';
+    else
+      echo '<option value="" selected>' . $this->PlaceHolder . '</option>';
+    
+    echo $this->ComboHelp->ComboText();
+    
+    echo '</select>';
   }
 }
 
