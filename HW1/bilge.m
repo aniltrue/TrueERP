@@ -14,7 +14,7 @@ for i = 2:n
     end
   end
   
-  if !isPrime
+  if ~isPrime
     continue;
   end
   
@@ -26,4 +26,5 @@ for i = 2:n
   end
   
   fprintf('\n');
+  row++;
 end
