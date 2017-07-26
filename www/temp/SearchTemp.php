@@ -5,6 +5,7 @@ include('class/SearchClass.php');
 $ObjectName = "";
 $PageName = "";
 $SearchSQL = "";
+$OrderSQL = "";
 $InputObjects = array();
 $SearchObjects = array();
 // Create "Input Objects" and "Search Objects"
