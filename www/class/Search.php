@@ -7,6 +7,9 @@ if(!CheckPageRoles($conn, $userInfo[2], $PageName)) {
 }
 ?>
 
+<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+<script src="Seach.js"></script>
+
 <div id="SearchPopup" class="w3-modal">
 <div class="w3-modal-content w3-card-4 w3-border w3-border-green">
 <div class="w3-container w3-light-gray w3-text-green">
@@ -43,7 +46,7 @@ foreach ($InputObjects as $InputObject) {
 </div>
 
 <span onclick="DisplaySearchPopup()" class="w3-btn w3-teal w3-round-xlarge w3-left w3-margin" >Ara</span>
-<span id="toExcel" class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin">Excel</span>
+<span id="ToExcel()" class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin">Excel</span>
 
 <?php
 
@@ -108,24 +111,5 @@ foreach($Row as $Rows) {
 }
 
 ?>
-
-<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
-
-<script type="text/javascript">
-$("#toExcel").click(function(){
-	$("#results").table2excel({
-   		exclude: ".noExl",
-   		name: <?php echo '"' . $ObjectName . '"'; ?>,
-   		filename: <?php echo '"' . $ObjectName . '"'; ?>
-	});
-});
-	
-function DisplaySearchPopup() {
-	document.getElementById('SearchPopup').style.display='block';
-}
-function CloseSearchPopup() {
-	document.getElementById('SearchPopup').style.display='none';
-}
-</script>
 
 <?php include('tail.php'); ?>
