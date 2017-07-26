@@ -74,7 +74,7 @@ if(!empty($SQL))
 
 // Get results
 $Rows = array();
-$results = $conn->query($SearchSQL);
+$results = $conn->query($SearchSQL . ' ' . $OrderSQL);
 $i = 0;
 while($row = $results->fetch_assoc()) 
 	$Rows[$i] = $row;
