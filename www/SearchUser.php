@@ -3,7 +3,8 @@ include('class/head.php');
 include('class/SearchClass.php');
 $ObjectName = "Kullanıcı";
 $PageName = "PAGE_HRM_USER_SEARCH";
-$SearchSQL = "SELECT * FROM User natural join UserTitles ORDER BY UserName, UserSurname ASC";
+$SearchSQL = "SELECT * FROM User natural join UserTitles";
+$OrderSQL = "ORDER BY UserName, UserSurname ASC";
 $InputObjects = array();
 $SearchObjects = array();
 // Create "Input Objects" and "Search Objects"
