@@ -5,64 +5,76 @@ if(!CheckPageRoles($conn, $userInfo[2], $PageName)) {
 	include('tail.php');
 	exit;
 }
-
-// Search box
-$SearchKey = "";
-if(isset($_GET["SearchKey"])) 
-	$SearchKey = trim($_GET["SearchKey"]);
-
-echo '<form action="#" method="get" class="w3-container w3-text-green">'
-echo '<h3>$ObjectName Bul</h3>'
-echo '<input name="SearchKey" class="w3-input w3-border" type="search" placeholder="Arama" value="' . $SearchKey . '"/>';
-
 ?>
 
-<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin">Ara</button>
-<span id="toExcel" class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin">Excel</span>
+<div id="SearchPopup" class="w3-modal">
+<div class="w3-modal-content w3-card-4 w3-border w3-border-green">
+<div class="w3-container w3-light-gray w3-text-green">
+
+<h3 class="w3-text-teal w3-border-bottom">Arama</h3>
+<span onclick="CloseSearchPopup()" class="w3-button w3-display-topright w3-text-teal">&times;</span>
+
+<form action="#" method="post">
+
+<ul class="w3-ul">
+
+<?php
+// Get values and Draw
+foreach ($InputObjects as $InputObject) {
+	if (isset($_GET[$InputObject->ColumnName]) && !empty($_GET[$InputObject->ColumnName]))
+		$InputObject = $conn->real_escape_string(trim($_GET[$InputObject->ColumnName]));
+	elseif (isset($_POST[$InputObject->ColumnName]) && !empty($_POST[$InputObject->ColumnName]))
+		$InputObject = $conn->real_escape_string(trim($_POST[$InputObject->ColumnName]));
+	
+	$InputObject->draw();
+}
+	
+?>
+	
+</ul>
+
+<button class="w3-btn w3-teal w3-round-xlarge w3-left w3-margin" name="Search" id="SearchBtn">Ara</button>
+
+<span class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" id="ClosePopup" onclick="CloseSearchPopup()">İptal</span>
+
 </form>
+</div>
+</div>
+</div>
+
+<span onclick="DisplaySearchPopup()" class="w3-btn w3-teal w3-round-xlarge w3-left w3-margin" >Ara</span>
+<span id="toExcel" class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin">Excel</span>
 
 <?php
 
 // Check Search
-if(!isset($_GET["SearchKey"])) {
+if(!isset($_GET["Search"]) && !isset($_POST["Search"])) {
 	$conn->close();
 	include('tail.php');
 	exit;
 }
 
-// Get Rows
-$Rows = array();
-$Keys = explode(" ", $SearchKey);
-
-$i = 0;
-$rslt1 = $conn->query($SearchSQL);
-while($row = $rslt1->fetch_assoc()) {
-	if(empty($SearchKey)) {
-		$Rows[$i] = $row;
-		$i++;
+// Create SQL Query
+$SQL = '';
+foreach ($InputObjects as $InputObject) {
+	if(empty($InputObject->Value))
 		continue;
-	}
-	
-	$Text = "";
-	foreach($row as $r) {
-		$Text = $Text . " " . $r;
-	}
-	
-	$Text = trim($Text);
-	$IsValid = true;
 
-	foreach($Keys as $Key) {
-		if(!strpos($Text, $Key)) {
-			$IsValid = false;
-			break;	
-		}
-	}
-
-	if($IsValid) {
-		$Rows[$i] = $row;
-		$i++;
-	}
+	if(empty($SQL))
+		$SQL = $SQL . $InputObject->ColumnName . "='" . $InputObject->Value . "'";
+	else
+		$SQL = $SQL . " AND " . $InputObject->ColumnName . "='" . $InputObject->Value . "'";
 }
+
+if(!empty($SQL))
+	$SearchSQL = $SearchSQL . ' WHERE ' . $SQL;
+
+// Get results
+$Rows = array();
+$results = $conn->query($SearchSQL);
+$i = 0;
+while($row = $results->fetch_assoc()) 
+	$Rows[$i] = $row;
 
 // Write results
 if(count($Rows) == 0) {
@@ -107,6 +119,13 @@ $("#toExcel").click(function(){
    		filename: <?php echo '"' . $ObjectName . '"'; ?>
 	});
 });
+	
+function DisplaySearchPopup() {
+	document.getElementById('SearchPopup').style.display='block';
+}
+function CloseSearchPopup() {
+	document.getElementById('SearchPopup').style.display='none';
+}
 </script>
 
 <?php include('tail.php'); ?>
