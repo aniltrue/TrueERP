@@ -13,7 +13,7 @@ $InputObjects[0] = new InputObject("UserEmail", "E-Posta", InputType::Email);
 $InputObjects[1] = new InputObject("UserName", "Ad", InputType::Text);
 $InputObjects[2] = new InputObject("UserSurname", "Soyad", InputType::Text);
 $InputObjects[3] = new InputObject("TitleName", "Ünvan", InputType::Combo);
-$InputObjects[3]->ComboHelp = new ComboHelp("SELECT * FROM UserTitles", "TitleName", "TitleDescription");
+$InputObjects[3]->ComboHelp = new ComboHelp($conn, "SELECT * FROM UserTitles", "TitleName", "TitleDescription");
 $InputObjects[4] = new InputObject("UserPhone", "Telefon", InputType::Text);
 
 $SearchObjects[0] = new SearchObject("UserEmail", "E-Posta", true);
