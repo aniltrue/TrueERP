@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Değer İyi Tarım ERP</title>
+<title>TRUE ERP</title>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
@@ -43,7 +43,7 @@
 					exit;
 				} else {
 					echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>Kullanıcı bloke edilmiştir.</ br>2 saniye içinde geri yönlendirileceksiniz.</p></div>';
-				header("Refresh:2; url=index.php");
+					header("Refresh:2; url=index.php");
 				}
 			} else {
 				echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>Girdiğiniz parola yanlış.</ br>2 saniye içinde geri yönlendirileceksiniz.</p></div>';
