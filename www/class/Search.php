@@ -5,6 +5,8 @@ if(!CheckPageRoles($conn, $userInfo[2], $PageName)) {
 	include('tail.php');
 	exit;
 }
+
+echo '<label id="ObjectName" style="display:none">' . $ObjectName . '</label>';
 ?>
 
 <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
