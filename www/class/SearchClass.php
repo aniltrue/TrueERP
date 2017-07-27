@@ -125,7 +125,7 @@ class SearchObject {
 }
 
 class LinkObject extends SearchObject {
- var $PageName, $ReferansColumn, $AdditionalPar;
+ var $PageName, $ReferansColumn, $AdditionalPar, $IsPopup;
  var $RoleCheck, $Page;
  
  function __construct($Text, $PageName, $conn, $UserTitle, $ReferansColumn) {
@@ -133,6 +133,7 @@ class LinkObject extends SearchObject {
   $this->PageName = $PageName;
   $this->ReferansColumn = $ReferansColumn;
   $this->AdditionalPar = "";
+  $tihs->IsPopup = false;
   
   $this->RoleCheck = CheckPageRoles($conn, $UserTitle, $PageName);
   $this->Page = $conn->query("SELECT PageURL, PageDescription FROM Pages WHERE PageName = '" . $PageName . "'");
@@ -142,12 +143,13 @@ class LinkObject extends SearchObject {
  function __draw($Row) {
   $ReferansText = "";
   if(!empty($this->ReferansColumn))
-   $ReferansText = '?' . $this->ReferansColumn . '=' . $Row[$this->ReferansColumn];
+   $ReferansText = '?' . $this->ReferansColumn . '=' . $Row[$this->ReferansColumn] . $this->AdditionalPar;
   
-  $URLText = 'href="' . $this->Page["PageURL"] . $ReferansText . $this->AdditionalPar . '"';
-  if($this->RoleCheck == false) {
+  $URLText = 'href="' . $this->Page["PageURL"] . $ReferansText . '"';
+  if($this->RoleCheck == false) 
    $URLText = 'tooltip="Bu alana yetkiniz yok." disabled';
-  }
+  elseif($this->IsPopup)
+	 $URLText = 'href="PopWindow(' . "'" . $this->Page["PageURL"] . $ReferansText . "', '" . $this->Page["PageDescription"] . "'" . ');"';
   
   return '<a class="w3-btn w3-teal w3-round-xlarge" ' . $URLText . '>' . $this->Page["PageDescription"] . '</a>';
  }
