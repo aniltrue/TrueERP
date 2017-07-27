@@ -57,7 +57,7 @@ class ComboHelp {
 	}
 }
 
-class InputObjects {
+class InputObject {
   var $ColumnName, $Text, $InputType, $Value, $PlaceHolder;
   var $ComboHelp;
   
@@ -91,7 +91,7 @@ class InputObjects {
 	  if($this->InputType === 'year')
 		  $InputText = 'type="number"';
     
-    echo '<input ' $NameText . ' ' . $IDText . ' ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $ClassText . ' />';
+    echo '<input ' . $NameText . ' ' . $IDText . ' ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $ClassText . ' />';
 	  if($this->InputType === "checkbox")
 		  echo '<label class="w3-text-black">' . $this->PlaceHolder . '</label>';
     
@@ -112,7 +112,7 @@ class InputObjects {
 }
 
 class SearchObject {
-  var $ColumnName, $Text, $IsExl;
+  public $ColumnName, $Text, $IsExl;
   
   function __construct($ColumnName, $Text, $IsExl) {
    $this->ColumnName = $ColumnName;
@@ -120,28 +120,28 @@ class SearchObject {
    $this->IsExl = $IsExl;
   }
   
-  function draw($Row) {
+  public function draw($Row) {
    return $Row[$this->ColumnName]; 
   }
 }
 
 class LinkObject extends SearchObject {
  var $PageName, $ReferansColumn, $AdditionalPar, $IsPopup;
- var $RoleCheck, $Page;
+ private $RoleCheck, $Page;
  
  function __construct($Text, $PageName, $conn, $UserTitle, $ReferansColumn) {
   parent::__construct(null, $Text, false);
   $this->PageName = $PageName;
   $this->ReferansColumn = $ReferansColumn;
   $this->AdditionalPar = "";
-  $tihs->IsPopup = false;
+  $this->IsPopup = false;
   
   $this->RoleCheck = CheckPageRoles($conn, $UserTitle, $PageName);
-  $this->Page = $conn->query("SELECT PageURL, PageDescription FROM Pages WHERE PageName = '" . $PageName . "'");
-  
+  $result = $conn->query("SELECT * FROM Pages WHERE PageName = '" . $PageName . "' AND PageEnable = 1");
+  $this->Page = $result->fetch_assoc();
  }
  
- function __draw($Row) {
+ public function draw($Row) {
   $ReferansText = "";
   if(!empty($this->ReferansColumn))
    $ReferansText = '?' . $this->ReferansColumn . '=' . $Row[$this->ReferansColumn] . $this->AdditionalPar;
@@ -150,7 +150,7 @@ class LinkObject extends SearchObject {
   if($this->RoleCheck == false) 
    $URLText = 'tooltip="Bu alana yetkiniz yok." disabled';
   elseif($this->IsPopup)
-	 $URLText = 'href="PopWindow(' . "'" . $this->Page["PageURL"] . $ReferansText . "', '" . $this->Page["PageDescription"] . "'" . ');"';
+	$URLText = 'href="PopWindow(' . "'" . $this->Page["PageURL"] . $ReferansText . "', '" . $this->Page["PageDescription"] . "'" . ');"';
   
   return '<a class="w3-btn w3-teal w3-round-xlarge" ' . $URLText . '>' . $this->Page["PageDescription"] . '</a>';
  }

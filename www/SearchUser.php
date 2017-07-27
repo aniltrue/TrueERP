@@ -9,12 +9,12 @@ $InputObjects = array();
 $SearchObjects = array();
 // Create "Input Objects" and "Search Objects"
 
-$InputObjects[0] = new InputObject("UserEmail", "E-Posta", InputType::Email);
-$InputObjects[1] = new InputObject("UserName", "Ad", InputType::Text);
-$InputObjects[2] = new InputObject("UserSurname", "Soyad", InputType::Text);
-$InputObjects[3] = new InputObject("TitleName", "Ünvan", InputType::Combo);
+$InputObjects[0] = new InputObject("UserEmail", "E-Posta", InputTypes::Email);
+$InputObjects[1] = new InputObject("UserName", "Ad", InputTypes::Text);
+$InputObjects[2] = new InputObject("UserSurname", "Soyad", InputTypes::Text);
+$InputObjects[3] = new InputObject("TitleName", "Ünvan", InputTypes::ComboBox);
 $InputObjects[3]->ComboHelp = new ComboHelp($conn, "SELECT * FROM UserTitles ORDER BY TitleDescription ASC", "TitleName", "TitleDescription");
-$InputObjects[4] = new InputObject("UserPhone", "Telefon", InputType::Text);
+$InputObjects[4] = new InputObject("UserPhone", "Telefon", InputTypes::Text);
 
 $SearchObjects[0] = new SearchObject("UserEmail", "E-Posta", true);
 $SearchObjects[1] = new SearchObject("UserName", "Ad", true);
