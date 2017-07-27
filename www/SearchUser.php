@@ -27,4 +27,4 @@ $SearchObjects[7] = new LinkObject("Sil", "PAGE_HRM_USER_REMOVE", $conn, $userIn
 
 ?>
 
-<?php include('class/Search.php');
+<?php include('class/Search.php'); ?>
