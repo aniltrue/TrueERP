@@ -125,13 +125,14 @@ class SearchObject {
 }
 
 class LinkObject extends SearchObject {
- var $PageName, $ReferansColumn;
+ var $PageName, $ReferansColumn, $AdditionalPar;
  var $RoleCheck, $Page;
  
  function __construct($Text, $PageName, $conn, $UserTitle, $ReferansColumn) {
   parent::__construct(null, $Text, false);
   $this->PageName = $PageName;
   $this->ReferansColumn = $ReferansColumn;
+  $this->AdditionalPar = "";
   
   $this->RoleCheck = CheckPageRoles($conn, $UserTitle, $PageName);
   $this->Page = $conn->query("SELECT PageURL, PageDescription FROM Pages WHERE PageName = '" . $PageName . "'");
@@ -143,7 +144,7 @@ class LinkObject extends SearchObject {
   if(!empty($this->ReferansColumn))
    $ReferansText = '?' . $this->ReferansColumn . '=' . $Row[$this->ReferansColumn];
   
-  $URLText = 'href="' . $this->Page["PageURL"] . $ReferansText . '"';
+  $URLText = 'href="' . $this->Page["PageURL"] . $ReferansText . $this->AdditionalPar . '"';
   if($this->RoleCheck == false) {
    $URLText = 'tooltip="Bu alana yetkiniz yok." disabled';
   }
