@@ -15,11 +15,12 @@ class InputTypes {
 class ComboHelp {
 	var $conn, $SQL, $ValueColumn, $TextColumns, $Value;
 	
-	function __construct($conn, $SQL, $ValueColumn, $TextColumns, $Value) {
+	function __construct($conn, $SQL, $ValueColumn, $TextColumns) {
 		$this->conn = $conn;
 		$this->SQL = $SQL;
 		$this->ValueColumn = $ValueColumn;
 		$this->TextColumns = $TextColumns;
+		$this->Value = "";
 	}
 	
 	function ComboText() {
