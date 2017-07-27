@@ -1,8 +1,8 @@
 function ToExcel(){
 	$("#results").table2excel({
    		exclude: ".noExl",
-   		name: <?php echo '"' . $ObjectName . '"'; ?>,
-   		filename: <?php echo '"' . $ObjectName . '"'; ?>
+   		name: document.getElementById('ObjectName').textContent,
+   		filename: document.getElementById('ObjectName').textContent
 	});
 }
 
