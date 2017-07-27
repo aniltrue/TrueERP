@@ -14,4 +14,4 @@ $SearchObjects = array();
 
 ?>
 
-<?php include('class/Search.php');
+<?php include('class/Search.php'); ?>
