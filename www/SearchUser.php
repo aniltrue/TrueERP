@@ -23,7 +23,6 @@ $SearchObjects[3] = new SearchObject("TitleDescription", "Ünvan", true);
 $SearchObjects[4] = new SearchObject("UserPhone", "Telefon", true);
 $SearchObjects[5] = new LinkObject("Güncelle", "PAGE_HRM_USER_UPDATE", $conn, $userInfo[2], "UserEmail");
 $SearchObjects[6] = new LinkObject("Parola Değiştir", "PAGE_HRM_USER_PASSWORD_RESET", $conn, $userInfo[2], "UserEmail");
-$SearchObjects[7] = new LinkObject("Sil", "PAGE_HRM_USER_REMOVE", $conn, $userInfo[2], "UserEmail");
 
 ?>
 
