@@ -20,7 +20,6 @@ $SearchObjects[2]->AdditionalPar = "Search=1";
 $SearchObjects[2]->IsPopup = true;
 $SearchObjects[3] = new LinkObject("Rol Ekle", "PAGE_HRM_TITLE_ROLES_ADD", $conn, $userInfo[2], "TitleName");
 $SearchObjects[4] = new LinkObject("Güncelle", "PAGE_HRM_USER_TITLES_UPDATE", $conn, $userInfo[2], "TitleName");
-$SearchObjects[5] = new LinkObject("Sil", "PAGE_HRM_USER_TITLES_REMOVE", $conn, $userInfo[2], "TitleName");
 
 ?>
 
