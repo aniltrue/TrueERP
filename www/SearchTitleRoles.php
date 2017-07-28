@@ -10,7 +10,7 @@ $SearchObjects = array();
 // Create "Input Objects" and "Search Objects"
 
 $InputObjects[0] = new InputObject("TitleRoleID", "ID", InputTypes::Number);
-$InputObjects[1] = new InputObject("TitleName", "Ünvan", InputTypes::Combo);
+$InputObjects[1] = new InputObject("TitleName", "Ünvan", InputTypes::ComboBox);
 $InputObjects[1]->ComboHelp = new ComboHelp($conn, "SELECT * FROM UserTitles ORDER BY TitleName ASC", "TitleName", "TitleName");
 $InputObjects[2] = new InputObject("TitleDescription", "Ünvan Açıklaması", InputTypes::Text);
 $InputObjects[3] = new InputObject("RoleName", "Rol", InputTypes::ComboBox);
