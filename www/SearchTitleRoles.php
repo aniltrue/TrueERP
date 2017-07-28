@@ -1,4 +1,3 @@
-
 <?php
 include('class/head.php');
 include('class/SearchClass.php');
