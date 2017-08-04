@@ -3,7 +3,7 @@
 function readableTarget = translater(target, dictionary)
   target = splitSpaces(target);
   dictionary = splitSpaces(dictionary);
-  readableText = '';
+  readableTarget = '';
   
   for i = 1:length(target)
     word = target{i};
@@ -14,6 +14,6 @@ function readableTarget = translater(target, dictionary)
       end
     end
     
-    readbleText = [readableText ' ' word];
+    readbleTarget = [readableText ' ' word];
   end
 end
