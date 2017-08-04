@@ -1,3 +1,5 @@
+%% Bilge Maras S009842 Industrial Engineering
+
 function index = findMax(array, i)
   index = i;
   
