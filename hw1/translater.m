@@ -4,10 +4,10 @@ function readableTarget = translater(target, dictionary)
   readableText = '';
   
   for i = 1:length(target)
-    word = target(i);
+    word = target{i};
     for j = 1:length(dictionary)
-      if checkWordsSame(word, dictionary(j))
-        word = dictionary(j);
+      if checkWordsSame(word, dictionary{j})
+        word = dictionary{j};
         break;
       end
     end
