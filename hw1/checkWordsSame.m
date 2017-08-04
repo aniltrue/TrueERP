@@ -1,3 +1,5 @@
+%% Bilge Maras S009842 Industrial Engineering
+
 fucntion result = checkWordsSame(w1, w2)
   w1 = lower(w1);
   w2 = lower(w2);
