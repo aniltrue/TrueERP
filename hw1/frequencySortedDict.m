@@ -1,3 +1,5 @@
+%% Bilge Maras S009842 Industrial Engineering
+
 function sortedDict = frequencySortedDict(dictionary, frequency)
   dictionary = splitSpaces(dictionary);
   sortedDict = '';
