@@ -1,3 +1,5 @@
+%% Bilge Maras S009842 Industrial Engineering
+
 function readableTarget = translater(target, dictionary)
   target = splitSpaces(target);
   dictionary = splitSpaces(dictionary);
