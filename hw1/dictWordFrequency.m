@@ -1,3 +1,5 @@
+%% Bilge Maras S009842 Industrial Engineering
+
 function frequency = dictWordFrequency(dictionary, readableTarget)
   dictionary = splitSpaces(dictonary);
   readbleTarget = splitSpaces(readableTarget);
