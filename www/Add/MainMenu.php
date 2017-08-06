@@ -1,11 +1,9 @@
-
 <?php
-include('class/head.php');
-include('class/AddClass.php');
+$PageName = "PAGE_DEV_MAINMENU_ADD";
+include('../class/AddClass.php');
 $AddObjects = array();
 $TableName = "MainMenu";
 $ObjectName = "Ana menü";
-$PageName = "PAGE_DEV_MAINMENU_ADD";
 // Create "Add Objects"
 
 $AddObjects[0] = new AddObject("PageName", "Sayfa Adı", InputTypes::ComboBox, ObjectTypes::Common);
@@ -21,4 +19,4 @@ $AddObjects[2]->PlaceHolder = "Bir ana sayfa seçiniz.";
 
 ?>
 
-<?php include("class/Add.php"); ?>
+<?php include("../class/Add.php"); ?>

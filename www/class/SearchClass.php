@@ -1,5 +1,5 @@
 <?php
-
+include('head.php');
 class InputTypes {
  const Text = 'text';
  const Email = 'email';
@@ -13,17 +13,16 @@ class InputTypes {
 }
 
 class ComboHelp {
-	var $conn, $SQL, $ValueColumn, $TextColumns, $Value;
+	var $conn, $SQL, $ValueColumn, $TextColumns;
 	
 	function __construct($conn, $SQL, $ValueColumn, $TextColumns) {
 		$this->conn = $conn;
 		$this->SQL = $SQL;
 		$this->ValueColumn = $ValueColumn;
 		$this->TextColumns = $TextColumns;
-		$this->Value = "";
 	}
 	
-	function ComboText() {
+	function ComboText($Value) {
 		$ComboText = "";
 		
 		$Options = $this->conn->query($this->SQL);
@@ -33,9 +32,9 @@ class ComboHelp {
 		
 		while($Option = $Options->fetch_assoc()) {
 			$ValueText = 'value="' . $Option[$this->ValueColumn] . '"';
-      $SelectedText = "";
-      if ($Value == $Option[$this->ValueColumn]) 
-        $SelectedText = " selected";
+      		$SelectedText = "";
+      		if ($Value == $Option[$this->ValueColumn]) 
+        		$SelectedText = " selected";
       
 			$Text = "";
 			
@@ -74,7 +73,7 @@ class InputObject {
     echo '<label>' . $this->Text . '</label>';
 
     if($this->InputType === 'comboBox') {
-	    $this->drawCombo();
+	  $this->drawCombo();
       echo '</li>';
       return;
     }
@@ -99,25 +98,26 @@ class InputObject {
   }
   
   private function drawCombo() {
-    echo '<select class="w3-select w3-border" name="' . $this->ColumnName . ' id="' . $this->ColumnName . '">';
-    if ($this->Value === "")
-      echo '<option value="">' . $this->PlaceHolder . '</option>';
+    echo '<select class="w3-select w3-border" name="' . $this->ColumnName . '" id="' . $this->ColumnName . '">';
+    if ($this->Value != "")
+      echo '<option value=""> </option>';
     else
-      echo '<option value="" selected>' . $this->PlaceHolder . '</option>';
+      echo '<option value="" selected> </option>';
     
-    echo $this->ComboHelp->ComboText();
+    echo $this->ComboHelp->ComboText($this->Value);
     
     echo '</select>';
   }
 }
 
 class SearchObject {
-  public $ColumnName, $Text, $IsExl;
+  public $ColumnName, $Text, $IsExl, $TableName;
   
   function __construct($ColumnName, $Text, $IsExl) {
    $this->ColumnName = $ColumnName;
    $this->Text = $Text;
    $this->IsExl = $IsExl;
+   $this->TableName = '';
   }
   
   public function draw($Row) {
@@ -143,14 +143,18 @@ class LinkObject extends SearchObject {
  
  public function draw($Row) {
   $ReferansText = "";
-  if(!empty($this->ReferansColumn))
-   $ReferansText = '?' . $this->ReferansColumn . '=' . $Row[$this->ReferansColumn] . $this->AdditionalPar;
+  if(!empty($this->ReferansColumn)) {
+   if(!empty($this->AdditionalPar))
+   	$ReferansText = '?' . $this->ReferansColumn . '=' . $Row[$this->ReferansColumn] . '&' . $this->AdditionalPar;
+   else
+   	$ReferansText = '?' . $this->ReferansColumn . '=' . $Row[$this->ReferansColumn];
+  }
   
-  $URLText = 'href="' . $this->Page["PageURL"] . $ReferansText . '"';
+  $URLText = 'href="http://localhost/TrueERP/' . $this->Page["PageURL"] . $ReferansText . '"';
   if($this->RoleCheck == false) 
    $URLText = 'tooltip="Bu alana yetkiniz yok." disabled';
   elseif($this->IsPopup)
-	$URLText = 'href="PopWindow(' . "'" . $this->Page["PageURL"] . $ReferansText . "', '" . $this->Page["PageDescription"] . "'" . ');"';
+	$URLText = 'onclick="PopWindow(' . "'http://localhost/TrueERP/" . $this->Page["PageURL"] . $ReferansText . "', '" . $this->Page["PageDescription"] . "'" . ');"';
   
   return '<a class="w3-btn w3-teal w3-round-xlarge" ' . $URLText . '>' . $this->Page["PageDescription"] . '</a>';
  }

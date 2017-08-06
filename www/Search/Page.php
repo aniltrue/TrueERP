@@ -1,8 +1,7 @@
 <?php
-include('class/head.php');
-include('class/SearchClass.php');
-$ObjectName = "Sayfa";
 $PageName = "PAGE_DEV_PAGE_SEARCH";
+include('../class/SearchClass.php');
+$ObjectName = "Sayfa";
 $SearchSQL = "SELECT * FROM Pages";
 $OrderSQL = "ORDER BY PageName, PageDescription ASC";
 $InputObjects = array();
@@ -26,4 +25,4 @@ $SearchObjects[5] = new LinkObject("Güncelle", "PAGE_DEV_PAGE_UPDATE", $conn, $
 
 ?>
 
-<?php include('class/Search.php'); ?>
+<?php include('../class/Search.php'); ?>

@@ -1,11 +1,9 @@
-
 <?php
-include('class/head.php');
-include('class/AddClass.php');
+$PageName = "PAGE_DEV_ROLE_TYPES_ADD";
+include('../class/AddClass.php');
 $AddObjects = array();
 $TableName = "UserRoleTypes";
 $ObjectName = "Rol Türü";
-$PageName = "PAGE_DEV_ROLE_TYPES_ADD";
 // Create "Add Objects"
 
 $AddObjects[0] = new AddObject("RoleName", "Rol Adı", InputTypes::Text, ObjectTypes::Common);
@@ -18,4 +16,4 @@ $AddObjects[2] = new AddObject("RoleDescription", "Rol Açıklaması", InputType
 
 ?>
 
-<?php include("class/Add.php"); ?>
+<?php include("../class/Add.php"); ?>

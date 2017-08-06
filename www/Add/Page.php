@@ -1,10 +1,9 @@
 <?php
-include('class/head.php');
-include('class/AddClass.php');
+$PageName = "PAGE_DEV_PAGE_ADD";
+include('../class/AddClass.php');
 $AddObjects = array();
 $TableName = "Pages";
 $ObjectName = "Sayfa";
-$PageName = "PAGE_DEV_PAGE_ADD";
 // Create "Add Objects"
 
 $AddObjects[0] = new AddObject("PageName", "Sayfa Adı", InputTypes::Text, ObjectTypes::Common);
@@ -14,4 +13,4 @@ $AddObjects[2] = new AddObject("PageDescription", "Sayfa Açıklaması", InputTy
 
 ?>
 
-<?php include("class/Add.php"); ?>
+<?php include("../class/Add.php"); ?>

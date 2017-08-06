@@ -1,8 +1,7 @@
 <?php
-include('class/head.php');
-include('class/SearchClass.php');
-$ObjectName = "Kullanıcı";
 $PageName = "PAGE_HRM_USER_SEARCH";
+include('../class/SearchClass.php');
+$ObjectName = "Kullanıcı";
 $SearchSQL = "SELECT * FROM User natural join UserTitles";
 $OrderSQL = "ORDER BY UserName, UserSurname ASC";
 $InputObjects = array();
@@ -26,4 +25,4 @@ $SearchObjects[6] = new LinkObject("Parola Değiştir", "PAGE_HRM_USER_PASSWORD_
 
 ?>
 
-<?php include('class/Search.php'); ?>
+<?php include('../class/Search.php'); ?>

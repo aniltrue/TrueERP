@@ -1,11 +1,9 @@
-
 <?php
-include('class/head.php');
-include('class/AddClass.php');
+$PageName = "PAGE_HRM_TITLE_ROLES_ADD";
+include('../class/AddClass.php');
 $AddObjects = array();
 $TableName = "UserTitleRoles";
 $ObjectName = "Ünvan rolü";
-$PageName = "PAGE_HRM_TITLE_ROLES_ADD";
 // Create "Add Objects"
 
 $AddObjects[0] = new AddObject("TitleName", "Ünvan Adı", InputTypes::Text, ObjectTypes::Required);
@@ -15,4 +13,4 @@ $AddObjects[1]->PlaceHolder = "Bir rol seçiniz.";
 
 ?>
 
-<?php include("class/Add.php"); ?>
+<?php include("../class/Add.php"); ?>

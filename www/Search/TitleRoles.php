@@ -1,9 +1,8 @@
 <?php
-include('class/head.php');
-include('class/SearchClass.php');
-$ObjectName = "Ünvan Rolü";
 $PageName = "PAGE_HRM_TITLE_ROLES_SEARCH";
-$SearchSQL = "SELECT * FROM UserTitleRoles natural join (UserRoleTypes natural join Pages)";
+include('../class/SearchClass.php');
+$ObjectName = "Ünvan Rolü";
+$SearchSQL = "SELECT * FROM (UserTitleRoles natural join (UserRoleTypes natural join Pages)) natural join UserTitles";
 $OrderSQL = "ORDER BY TitleName, RoleName, TitleRoleID ASC";
 $InputObjects = array();
 $SearchObjects = array();
@@ -31,4 +30,4 @@ $SearchObjects[7] = new LinkObject("Güncelle", "PAGE_HRM_TITLE_ROLES_UPDATE", $
 
 ?>
 
-<?php include('class/Search.php'); ?>
+<?php include('../class/Search.php'); ?>

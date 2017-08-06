@@ -1,9 +1,8 @@
 <?php
-include('class/head.php');
-include('class/SearchClass.php');
+$PageName = "";
+include('../class/SearchClass.php');
 
 $ObjectName = "";
-$PageName = "";
 $SearchSQL = "";
 $OrderSQL = "";
 $InputObjects = array();
@@ -14,4 +13,4 @@ $SearchObjects = array();
 
 ?>
 
-<?php include('class/Search.php'); ?>
+<?php include('../class/Search.php'); ?>

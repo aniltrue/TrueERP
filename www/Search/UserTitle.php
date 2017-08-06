@@ -1,8 +1,7 @@
 <?php
-include('class/head.php');
-include('class/SearchClass.php');
-$ObjectName = "Ünvan";
 $PageName = "PAGE_HRM_USER_TITLES_SEARCH";
+include('../class/SearchClass.php');
+$ObjectName = "Ünvan";
 $SearchSQL = "SELECT * FROM UserTitles";
 $OrderSQL = "ORDER BY TitleName, TitleDescription ASC";
 $InputObjects = array();
@@ -22,4 +21,4 @@ $SearchObjects[4] = new LinkObject("Güncelle", "PAGE_HRM_USER_TITLES_UPDATE", $
 
 ?>
 
-<?php include('class/Search.php'); ?>
+<?php include('../class/Search.php'); ?>

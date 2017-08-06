@@ -1,6 +1,6 @@
 <?php
-include('class/head.php');
-include('class/AddClass.php');
+$PageName = "PAGE_HRM_USER_ADD";
+include('../class/AddClass.php');
 ?>
 
 <div id="PasswordInfo" class="w3-container w3-card-4 w3-white w3-left-align w3-tooltip w3-animate-opacity">
@@ -21,7 +21,6 @@ $('#PasswordInfo').hide();
 $AddObjects = array();
 $TableName = "User";
 $ObjectName = "Kullanıcı";
-$PageName = "PAGE_HRM_USER_ADD";
 
 $AddObjects[0] = new AddObject("UserEmail", "E-Posta Adresi", InputTypes::Email, ObjectTypes::Common);
 $AddObjects[1] = new AddObject("UserName", "Kullanıcı Adı", InputTypes::Text, ObjectTypes::Common);
@@ -34,7 +33,7 @@ $AddObjects[5]->PlaceHolder = "Bir ünvan seçiniz.";
 
 ?>
 
-<?php include("class/Add.php"); ?>
+<?php include("../class/Add.php"); ?>
 
 <script>
 $(document).ready(function() {

@@ -28,7 +28,7 @@ class ComboHelp {
 		$this->TextColumns = $TextColumns;
 	}
 	
-	function ComboText() {
+	function ComboText($Value) {
 		$ComboText = "";
 		
 		$Options = $this->conn->query($this->SQL);
@@ -38,6 +38,10 @@ class ComboHelp {
 		
 		while($Option = $Options->fetch_assoc()) {
 			$ValueText = 'value="' . $Option[$this->ValueColumn] . '"';
+      		$SelectedText = "";
+      		if ($Value == $Option[$this->ValueColumn]) 
+        		$SelectedText = " selected";
+      
 			$Text = "";
 			
 			if(is_string($this->TextColumns))
@@ -51,15 +55,15 @@ class ComboHelp {
 				}
 			}
 			
-			$ComboText = $ComboText . '<option ' . $ValueText . '>' . trim($Text) . '</option>';
+			$ComboText = $ComboText . '<option ' . $ValueText . $SelectedText . '>' . trim($Text) . '</option>';
 		}
 		
 		return $ComboText;
 	}
 }
 
-class AddObject {
-  var $ColumnName, $ColumnText, $InputType, $ObjectType, $PlaceHolder, $IsRequired, $IsUnique, $ComboHelp;
+class UpdateObject {
+  var $ColumnName, $ColumnText, $InputType, $ObjectType, $PlaceHolder, $IsRequired, $IsUnique, $ComboHelp, $Value;
   
   function __construct($ColumnName, $ColumnText, $InputType, $ObjectType) {
    $this->ColumnName = $ColumnName;
@@ -70,15 +74,14 @@ class AddObject {
    $this->IsRequired = true;
    $this->IsUnique = false;
    $this->ComboHelp = null;
+   $this->Value = '';
   }
   
   function draw() {
    if($this->InputType === 'comboBox') {
-		 $this->drawCombo();
-     return;
+		$this->drawCombo();
+     	return;
 	 }
-   
-	 $now = new DateTime('now');
 		
 	 echo '<div class="w3-row w3-section">';
 	 $this->drawTitle();
@@ -89,31 +92,27 @@ class AddObject {
    
 	 $PlaceHolderText = 'placeholder="' . $this->PlaceHolder . '"';
 	 
-	 $ValueText = 'value=""';
-	 if($this->InputType === 'year')
-		 $ValueText = 'value="' . $now()->format("Y") . '"';
-	 elseif($this->InputType === 'date')
-		 $ValueText = 'value="' . $now()->format("d.M.Y") . '"';
+	 $ValueText = 'value="' . $this->Value . '"';
 	
 	 echo '<input ' . $InputText . ' ' . $ValueText . ' ' . $PlaceHolderText . ' ' . $this->getPropertiesText() . ' />';
 	 if($this->InputType === "checkbox")
 		 echo '<label class="w3-text-black">' . $this->PlaceHolder . '</label>';
 	 
-   echo '</div>';
+   	 echo '</div>';
   }
   
 	private function drawCombo() {
 		echo '<div class="w3-row w3-section">';
 		$this->drawTitle();
 		echo '<select class="w3-select w3-border" ' . $this->getPropertiesText() . '>';
-		if($this->IsRequired)
-			echo '<option value="" disabled selected>' . $this->PlaceHolder . '</option>';
-		else
-			echo '<option value="" selected>' . $this->PlaceHolder . '</option>';
-		
-		echo $this->ComboHelp->ComboText();
-		
-		echo '</select>';
+    	if ($this->Value != "")
+      		echo '<option value="">' . $this->PlaceHolder . '</option>';
+    	else
+      		echo '<option value="" selected>' . $this->PlaceHolder . '</option>';
+    
+    	echo $this->ComboHelp->ComboText($this->Value);
+    
+    	echo '</select>';
 		echo '</div>';
 	}
 	

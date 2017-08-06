@@ -1,7 +1,7 @@
 <?php
 // Check Roles
 if(!CheckPageRoles($conn, $userInfo[2], $PageName)) {
-	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Bu Sayfaya Yetkiniz Yok!</h3><br /><p>Anasayfaya dönmek için <a href="main.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>';
+	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Bu Sayfaya Yetkiniz Yok!</h3><br /><p>Anasayfaya dönmek için <a href="' . $WorkPlace . 'main.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>';
 	include('tail.php');
 	exit;
 }
@@ -51,14 +51,33 @@ function PopWindow(url, title) {
 <ul class="w3-ul">
 
 <?php
-// Get values and Draw
+// Get values and Draw and Create SQL Query
+$SQL = '';
 foreach ($InputObjects as $InputObject) {
-	if (isset($_GET[$InputObject->ColumnName]) && !empty($_GET[$InputObject->ColumnName]))
-		$InputObject = $conn->real_escape_string(trim($_GET[$InputObject->ColumnName]));
-	elseif (isset($_POST[$InputObject->ColumnName]) && !empty($_POST[$InputObject->ColumnName]))
-		$InputObject = $conn->real_escape_string(trim($_POST[$InputObject->ColumnName]));
+	if (isset($_GET[$InputObject->ColumnName]) && $_GET[$InputObject->ColumnName] != '')
+		$InputObject->Value = $conn->real_escape_string(trim($_GET[$InputObject->ColumnName]));
+	elseif (isset($_POST[$InputObject->ColumnName]) && $_POST[$InputObject->ColumnName] != '')
+		$InputObject->Value = $conn->real_escape_string(trim($_POST[$InputObject->ColumnName]));
 	
 	$InputObject->draw();
+	
+	if($InputObject->Value === '')
+		continue;
+	
+	if($InputObject->Value === '-')
+		$InputObject->Value = '';
+		
+	$Operator = ' = ';
+	if(strpos($InputObject->Value, '%') != false)
+		$Operator = ' LIKE ';
+		
+	if(!empty($SQL))
+		$SQL = $SQL . " AND ";
+	
+	if(empty($InputObject->TableName))
+		$SQL = $SQL . $InputObject->ColumnName . $Operator . "'" . $InputObject->Value . "'";
+	else
+		$SQL = $SQL . $InputObject->TableName . '.' . $InputObject->ColumnName . $Operator . "'" . $InputObject->Value . "'";
 }
 	
 ?>
@@ -75,27 +94,16 @@ foreach ($InputObjects as $InputObject) {
 </div>
 
 <span onclick="DisplaySearchPopup();" class="w3-btn w3-teal w3-round-xlarge w3-left w3-margin" >Ara</span>
-<span onclick="ToExcel()" class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin">Excel</span>
 
 <?php
 
 // Check Search
 if(!isset($_GET["Search"]) && !isset($_POST["Search"])) {
+	echo '<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" disabled>Excel</span>';
 	include('tail.php');
 	exit;
-}
-
-// Create SQL Query
-$SQL = '';
-foreach ($InputObjects as $InputObject) {
-	if(empty($InputObject->Value))
-		continue;
-
-	if(empty($SQL))
-		$SQL = $SQL . $InputObject->ColumnName . "='" . $InputObject->Value . "'";
-	else
-		$SQL = $SQL . " AND " . $InputObject->ColumnName . "='" . $InputObject->Value . "'";
-}
+} else
+	echo '<span onclick="ToExcel()" class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin">Excel</span>';
 
 if(!empty($SQL))
 	$SearchSQL = $SearchSQL . ' WHERE ' . $SQL;

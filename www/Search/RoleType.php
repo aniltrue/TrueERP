@@ -1,19 +1,23 @@
 <?php
-include('class/head.php');
-include('class/SearchClass.php');
-$ObjectName = "Kullanıcı Rolü";
 $PageName = "PAGE_DEV_ROLE_TYPES_SEARCH";
-$SearchSQL = "SELECT * FROM UserRoleTypes u left join Pages p ON u.PageName = p.PageName";
+include('../class/SearchClass.php');
+$ObjectName = "Kullanıcı Rolü";
+$SearchSQL = "SELECT * FROM UserRoleTypes left join Pages ON UserRoleTypes.PageName = Pages.PageName";
 $OrderSQL = "ORDER BY RoleName, RoleDescription ASC";
 $InputObjects = array();
 $SearchObjects = array();
 // Create "Input Objects" and "Search Objects"
 
 $InputObjects[0] = new InputObject("RoleName", "Rol Adı", InputTypes::Text);
+$InputObjects[0]->TableName = "UserRoleTypes";
 $InputObjects[1] = new InputObject("RoleDescription", "Rol Açıklaması", InputTypes::Text);
+$InputObjects[1]->TableName = "UserRoleTypes";
 $InputObjects[2] = new InputObject("PageName", "Sayfa Adı", InputTypes::Text);
+$InputObjects[2]->TableName = "UserRoleTypes";
 $InputObjects[3] = new InputObject("PageDescription", "Sayfa Açıklaması", InputTypes::Text);
+$InputObjects[3]->TableName = "Pages";
 $InputObjects[4] = new InputObject("PageURL", "URL", InputTypes::Text);
+$InputObjects[4]->TableName = "Pages";
 
 $SearchObjects[0] = new SearchObject("RoleName", "Rol Adı", true);
 $SearchObjects[1] = new SearchObject("RoleDescription", "Rol Açıklaması", true);
@@ -27,4 +31,4 @@ $SearchObjects[6]->IsPopup = true;
 
 ?>
 
-<?php include('class/Search.php'); ?>
+<?php include('../class/Search.php'); ?>
