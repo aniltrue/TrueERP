@@ -84,7 +84,7 @@ foreach ($UpdateObjects as $UpdateObject)
 	$UpdateObject->Draw();
 
 
-echo '<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" name="Create" id="UpdateBtn">'. $ObjectName . ' Güncelle</button>
+echo '<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" name="Update" id="UpdateBtn">'. $ObjectName . ' Güncelle</button>
 </form>';
 
 include('tail.php'); 
