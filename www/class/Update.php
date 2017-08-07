@@ -18,10 +18,10 @@ foreach ($UpdateObjects as $UpdateObject) {
 	else
 		$UpdateObject->Value = $conn->real_escape_string(trim($_GET[$UpdateObject->ColumnName]));
 	
-	if($SelectSQL == '')
+	if($WhereSQL == '')
 		$WhereSQL = $UpdateObject->ColumnName . "='" . $UpdateObject->Value . "'";
 	else
-		$WhereSQL = $SelectSQL . ' AND ' . $UpdateObject->ColumnName . "='" . $UpdateObject->Value . "'";
+		$WhereSQL = $WhereSQL . ' AND ' . $UpdateObject->ColumnName . "='" . $UpdateObject->Value . "'";
 		
 	continue;
   }
@@ -55,12 +55,11 @@ if(isset($_POST["Update"])) {
 				echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>' . $UpdateObject->ColumnText . ' girmeniz gerekiyor!</p></div>';
 				$IsValid = false;
 			}
-		} else {
+		} elseif($UpdateObject->ObjectType == 0) {
 			if(!empty($UpdateSQL)) 
 				$UpdateSQL = $UpdateSQL . ", ";
 			
-				
-			$ColumnsSQL = $ColumnsSQL . $UpdateObject->ColumnName . "='" . $UpdateObject->Value . "'";
+			$UpdateSQL = $UpdateSQL . $UpdateObject->ColumnName . "='" . $UpdateObject->Value . "'";
 		}
 	}
 	
@@ -77,13 +76,13 @@ if(isset($_POST["Update"])) {
 
 // Add Form
 echo '<form action="#" method="post" class="w3-container w3-text-green">
-<h3>' . $ObjectName . ' Ekle</h3>';
+<h3>' . $ObjectName . ' Güncelle</h3>';
 
 foreach ($UpdateObjects as $UpdateObject) 
 	$UpdateObject->Draw();
 
 
-echo '<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" name="Create" id="CreateBtn">'. $ObjectName . ' Ekle</button>
+echo '<button class="w3-btn w3-teal w3-round-xlarge w3-right w3-margin" name="Create" id="UpdateBtn">'. $ObjectName . ' Güncelle</button>
 </form>';
 
 include('tail.php'); 
