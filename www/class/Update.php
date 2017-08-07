@@ -15,8 +15,10 @@ foreach ($UpdateObjects as $UpdateObject) {
   if(isset($_GET[$UpdateObject->ColumnName]) || isset($_POST[$UpdateObject->ColumnName])) {
 	if(isset($_POST[$UpdateObject->ColumnName]))
 		$UpdateObject->Value = $conn->real_escape_string(trim($_POST[$UpdateObject->ColumnName]));
-	else
+	else {
 		$UpdateObject->Value = $conn->real_escape_string(trim($_GET[$UpdateObject->ColumnName]));
+		unset($_GET[$UpdateObject->ColumnName)]);
+	}
 	
 	if($WhereSQL == '')
 		$WhereSQL = $UpdateObject->ColumnName . "='" . $UpdateObject->Value . "'";
