@@ -24,6 +24,10 @@ function CheckRoles($conn, $UserTitle, $RoleName) {
  $Roles = $conn->query("SELECT * FROM UserTitleRoles WHERE TitleName = '" . $UserTitle . "' AND (RoleName = '" . $RoleName ."' OR RoleName = 'ROLE_ALL')");
  return $Roles->num_rows > 0;
 }
+	
+function DisplayError($title, $text) {
+	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>' . $title . '</h3><br /><p>' . $text . '</p></div>';
+}
 ?>
 	
 <?php
@@ -46,9 +50,9 @@ $WorkPlace = 'http://localhost/TrueERP/';
 <?php
 // Check Login
 session_start();
-if(!isset($_SESSION["user"]) || !isset($_SESSION["email"])) {
+if(!isset($_SESSION["user"]) || !isset($_SESSION["email"])) {<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>Üye girişi yapmak için <a href="' . $WorkPlace . 'index.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>'
 	session_destroy();
-	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>Üye girişi yapmak için <a href="' . $WorkPlace . 'index.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>';
+	echo ';
 	include('tail.php');
 	exit;
 }
