@@ -50,9 +50,9 @@ $WorkPlace = 'http://localhost/TrueERP/';
 <?php
 // Check Login
 session_start();
-if(!isset($_SESSION["user"]) || !isset($_SESSION["email"])) {<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>Üye girişi yapmak için <a href="' . $WorkPlace . 'index.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>'
+if(!isset($_SESSION["user"]) || !isset($_SESSION["email"])) {
 	session_destroy();
-	echo ';
+	echo '<div class="w3-panel w3-red w3-margin w3-animate-opacity"><h3>Dikkat!</h3><br /><p>Üye girişi yapmak için <a href="' . $WorkPlace . 'index.php" class="w3-hover-gray">BURAYA</a> tıklayınız.</p></div>';
 	include('tail.php');
 	exit;
 }
