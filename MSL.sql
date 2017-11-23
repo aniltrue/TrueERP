@@ -150,8 +150,15 @@ INSERT INTO SaleState (StateDescription) VALUES ('Purchase Completed');
 INSERT INTO SaleState (StateDescription) VALUES ('Awaiting Return Confirmation');
 INSERT INTO SaleState (StateDescription) VALUES ('Return Completed');
 
-CREATE VIEW Accounting AS SELECT UserName, (Name + ' ' + Surname) AS FullName, BrandID, BrandName, ProductID, ProductName, Price, Cost, (Price - Cost) AS UnitProfit, Amount, (Amount * (Price - Cost)) AS Profit, ChangedDate AS PurchasedDate, Stock FROM (Sales natural join (Product natural join Brand)) natural join User WHERE SaleState = 3 ORDER BY ChangedDate DESC;
-CREATE VIEW Employees AS SELECT UserName, Name, Surname, UserEmail, TitleName, Salary FROM Employee natural join User WHERE TitleName != 'Customer' ORDER BY TitleName, UserName ASC;
+CREATE VIEW Accounting AS 
+	SELECT UserName, (Name + ' ' + Surname) AS FullName, BrandID, BrandName, ProductID, ProductName, Price, Cost, (Price - Cost) AS UnitProfit, Amount, (Amount * (Price - Cost)) AS Profit, ChangedDate AS PurchasedDate, Stock 
+    FROM (Sales natural join (Product natural join Brand)) natural join User 
+    WHERE SaleState = 3 ORDER BY ChangedDate DESC;
+    
+CREATE VIEW Employees AS 
+	SELECT UserName, Name, Surname, UserEmail, TitleName, Salary 
+    FROM Employee natural join User 
+    WHERE TitleName != 'Customer' ORDER BY TitleName, UserName ASC;
 
 DELIMITER $$
 CREATE PROCEDURE AddUser (
@@ -201,7 +208,7 @@ END$$
 CREATE FUNCTION ChangePassword(
 	UserName VARCHAR(32),
 	OldPassword VARCHAR(32),
-    NewPassword VARCHAR(32)
+    	NewPassword VARCHAR(32)
     )
     RETURNS BOOL
 BEGIN
@@ -210,7 +217,7 @@ BEGIN
 	ELSE 
 		UPDATE User SET Password = MD5(NewPassword) WHERE User.UserName = UserName;
 		RETURN TRUE;
-    END IF;
+    	END IF;
 END$$
 
 CREATE FUNCTION CheckRole(
