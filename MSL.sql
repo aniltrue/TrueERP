@@ -208,7 +208,7 @@ END$$
 CREATE FUNCTION ChangePassword(
 	UserName VARCHAR(32),
 	OldPassword VARCHAR(32),
-    	NewPassword VARCHAR(32)
+    NewPassword VARCHAR(32)
     )
     RETURNS BOOL
 BEGIN
@@ -217,7 +217,7 @@ BEGIN
 	ELSE 
 		UPDATE User SET Password = MD5(NewPassword) WHERE User.UserName = UserName;
 		RETURN TRUE;
-    	END IF;
+    END IF;
 END$$
 
 CREATE FUNCTION CheckRole(
