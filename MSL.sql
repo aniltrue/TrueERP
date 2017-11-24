@@ -42,7 +42,7 @@ CREATE TABLE Roles (
 
 CREATE TABLE Brand (
 	BrandID INT AUTO_INCREMENT NOT NULL UNIQUE,
-	BrandName VARCHAR(32) NOT NULL,
+	BrandName VARCHAR(32) NOT NULL UNIQUE,
 	PRIMARY KEY (BrandID)
 );
 
@@ -160,7 +160,13 @@ CREATE VIEW Employees AS
     FROM Employee natural join User 
     WHERE TitleName != 'Customer' ORDER BY TitleName, UserName ASC;
 
+CREATE VIEW Reviews AS
+	SELECT ProductID, ProductName, avg(ReviewPoint) AS ReviewPoint, BrandID, BrandName, Price, Cost, (Price - Cost) AS Profit,
+    FROM Review natural join (Product natural join Brand),
+    GROUP BY ProductID ORDER BY ProductName, BrandName ASC
+    
 DELIMITER $$
+DROP PROCEDURE IF EXISTS AddUser$$
 CREATE PROCEDURE AddUser (
 	UserName VARCHAR(32),
     UserEmail VARCHAR(32),
@@ -170,14 +176,15 @@ CREATE PROCEDURE AddUser (
     TitleName VARCHAR(32)
     )
 BEGIN
-	DECLARE EXIT HANDLER FOR SQLWARNING BEGIN
-		SET @exiting = 1;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN
+		RESIGNAL;
     END;
     
     INSERT INTO User (UserName, UserEmail, Name, Surname, Password, TitleName) VALUES (UserName, UserEmail, Name, Surname, MD5(Password), TitleName);
     SELECT * FROM User WHERE User.UserName = UserName;
 END$$
 
+DROP PROCEDURE IF EXISTS AddEmployee$$
 CREATE PROCEDURE AddEmployee(
 	UserName VARCHAR(32),
     UserEmail VARCHAR(32),
@@ -187,15 +194,14 @@ CREATE PROCEDURE AddEmployee(
     TitleName VARCHAR(32), 
 	Salary FLOAT
     )
-Adding:BEGIN
-	DECLARE EXIT HANDLER FOR SQLWARNING BEGIN
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN
 		ROLLBACK;
-		SET @exiting = 1;
+		RESIGNAL;
     END;
     
 	IF (TitleName = 'Customer') THEN
-		SELECT 'Title cannot be Customer' AS Error;
-		LEAVE Adding;
+		SIGNAL sqlstate '45000' SET message_text = 'Title cannot be Customer';
 	END IF;
     
 	START TRANSACTION;
@@ -205,6 +211,39 @@ Adding:BEGIN
 	COMMIT;
 END$$
 
+DROP PROCEDURE IF EXISTS AddProduct$$
+CREATE PROCEDURE AddProduct (
+	ProductName VARCHAR(32),
+    Stock INT,
+    Price FLOAT,
+    Cost FLOAT,
+    BrandName VARCHAR(32)
+    )
+BEGIN
+	DECLARE v_BrandID INT;
+    
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN
+		ROLLBACK;
+		RESIGNAL;
+	END;
+    
+    START TRANSACTION;
+		IF NOT EXISTS (SELECT BrandID FROM Brand WHERE Brand.BrandName = BrandName) THEN
+			INSERT INTO Brand (BrandName) VALUE (BrandName);
+        END IF;
+        
+        SELECT BrandID INTO v_BrandID FROM Brand WHERE Brand.BrandName = BrandName;
+        
+        IF EXISTS (SELECT ProductID FROM Product WHERE Product.ProductName = ProductName AND Product.BrandID = v_BrandID) THEN
+			SIGNAL sqlstate '45000' SET message_text = 'The brand has same product';
+		END IF;
+        
+        INSERT INTO Product (ProductName, Stock, Price, Cost, BrandID) VALUES (ProductName, ABS(Stock), ABS(Price), ABS(Cost), v_BrandID);
+        SELECT * FROM Product WHERE Product.BrandID = v_BrandID AND Product.ProductName = ProductName;
+    COMMIT;
+END$$
+
+DROP FUNCTION IF EXISTS ChangePassword$$
 CREATE FUNCTION ChangePassword(
 	UserName VARCHAR(32),
 	OldPassword VARCHAR(32),
@@ -212,6 +251,10 @@ CREATE FUNCTION ChangePassword(
     )
     RETURNS BOOL
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN
+		RETURN FALSE;
+	END;
+    
 	IF NOT EXISTS (SELECT * FROM User WHERE User.UserName = UserName AND User.Password = MD5(OldPassword)) THEN
 		RETURN FALSE;
 	ELSE 
@@ -220,6 +263,7 @@ BEGIN
     END IF;
 END$$
 
+DROP FUNCTION IF EXISTS CheckRole$$
 CREATE FUNCTION CheckRole(
 	UserName VARCHAR(32),
     PageName VARCHAR(32)
